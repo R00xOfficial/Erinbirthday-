@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal.jsx';
 import { burstFrom } from '../fx.js';
+import { sfx } from '../sound.js';
 
 const CONFIRM_WINDOW = 3500;
 
@@ -52,8 +53,11 @@ export default function Coupons({ items, redeemed = {}, onRedeem, onUndo, redeem
                       if (isArmed) {
                         setArmed(null);
                         onRedeem?.(c.id);
+                        setTimeout(() => sfx.thud(), 300);
+                        setTimeout(() => sfx.chime(7), 480);
                         setTimeout(() => burstFrom(refs.current[c.id], { count: 20, spread: 120 }, 0.8, 0.5), 180);
                       } else {
+                        sfx.tick();
                         setArmed(c.id);
                       }
                     }}

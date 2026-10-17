@@ -51,6 +51,15 @@ The build uses relative paths, so it works from a sub-path or a domain root.
 - Respects `prefers-reduced-motion`.
 - `node scripts/make-placeholders.mjs` regenerates the placeholder images.
 
+## Sound
+
+- Background song: `public/audio/our-song.mp3` (a copyrighted recording — fine
+  for a private gift, but remove it after the birthday: delete the file, run
+  `npm run build` and commit). It starts on the first envelope tap; the
+  floating ♪ button mutes everything.
+- Sound effects are synthesised in `src/sound.js` (no audio files).
+- On iPhone, the ringer/silent switch can mute the effects; the song still plays.
+
 ## Before you send the link
 
 Test on a real iPhone: open the envelope, solve each game, open/close a photo,

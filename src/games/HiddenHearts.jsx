@@ -5,6 +5,7 @@ import ProgressIndicator from '../components/ProgressIndicator.jsx';
 import ScrapbookPhoto from '../components/ScrapbookPhoto.jsx';
 import { Heart } from '../components/Icons.jsx';
 import { burstFrom } from '../fx.js';
+import { sfx } from '../sound.js';
 
 const HINT_AFTER = 9000;
 
@@ -134,6 +135,9 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
     setLatest(heart);
     onFind?.(heart.id);
     burstFrom(e.currentTarget, { count: 12, spread: 64, size: [7, 15] });
+    sfx.pop();
+    if (next.length === hearts.length) setTimeout(() => sfx.success(), 300);
+    else setTimeout(() => sfx.chime(next.length * 2), 120);
 
     // Fly a copy of the heart up to the counter.
     const scene = sceneRef.current?.getBoundingClientRect();
@@ -175,7 +179,11 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
         <button
           type="button"
           className="garden__horse"
-          onClick={() => setNeigh(Date.now())}
+          onClick={() => {
+            setNeigh(Date.now());
+            sfx.neigh();
+            setTimeout(() => sfx.clipclop(), 150);
+          }}
           aria-label="A very silly horse"
         />
         {neigh > 0 && (

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Heart } from './Icons.jsx';
 import { burstFrom, reducedMotion } from '../fx.js';
+import { sfx } from '../sound.js';
 
 const OPENING_MS = 650;
 
@@ -10,7 +11,7 @@ const OPENING_MS = 650;
  * in a burst of hearts, then the flap opens and the letter writes itself in.
  * Controlled via `opened` / `onOpen` so the state can persist.
  */
-export default function EnvelopeReveal({ opened, onOpen, label = 'tap to open', children, className = '' }) {
+export default function EnvelopeReveal({ opened, onOpen, onStart, label = 'tap to open', children, className = '' }) {
   const [opening, setOpening] = useState(false);
   const sealRef = useRef(null);
   const timer = useRef(null);
@@ -19,6 +20,11 @@ export default function EnvelopeReveal({ opened, onOpen, label = 'tap to open', 
 
   const open = () => {
     if (opened || opening) return;
+    // Called synchronously inside the tap so phones allow audio to start.
+    onStart?.();
+    sfx.pop();
+    setTimeout(() => sfx.paper(), 280);
+    setTimeout(() => sfx.chime(5), 700);
     if (reducedMotion()) {
       onOpen?.();
       return;

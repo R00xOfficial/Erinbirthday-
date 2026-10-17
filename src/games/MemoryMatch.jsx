@@ -5,6 +5,7 @@ import ProgressIndicator from '../components/ProgressIndicator.jsx';
 import { Heart } from '../components/Icons.jsx';
 import { asset } from '../asset.js';
 import { burstFrom } from '../fx.js';
+import { sfx } from '../sound.js';
 
 const MISMATCH_DELAY = 900;
 
@@ -60,14 +61,20 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
 
   useEffect(() => {
     if (!state.locked) return;
+    const s = setTimeout(() => sfx.bloop(), 380);
     const t = setTimeout(() => dispatch({ type: 'hide' }), MISMATCH_DELAY);
-    return () => clearTimeout(t);
+    return () => {
+      clearTimeout(s);
+      clearTimeout(t);
+    };
   }, [state.locked]);
 
   useEffect(() => {
     if (!state.lastMatch) return;
     onMatch?.(state.lastMatch);
     setBurst(Date.now());
+    if (state.matched.length === pairs.length) setTimeout(() => sfx.success(), 350);
+    else setTimeout(() => sfx.chime(state.matched.length * 2), 250);
     // Hearts pop out of both matched cards once they've finished flipping.
     const t = setTimeout(() => {
       state.deck.forEach((card, i) => {
@@ -102,7 +109,10 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
               type="button"
               className={`mcard ${faceUp ? 'is-up' : ''} ${isMatched ? 'is-matched' : ''} ${isWrong ? 'is-wrong' : ''} ${done ? 'is-won' : ''}`}
               style={{ '--i': i }}
-              onClick={() => dispatch({ type: 'flip', index: i })}
+              onClick={() => {
+                if (!state.locked && !faceUp) sfx.flip();
+                dispatch({ type: 'flip', index: i });
+              }}
               aria-label={faceUp ? pair.label : `Card ${i + 1}, face down`}
               aria-pressed={faceUp}
             >

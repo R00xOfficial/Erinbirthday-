@@ -11,6 +11,9 @@ import HeartBurst from './components/HeartBurst.jsx';
 import Coupons from './components/Coupons.jsx';
 import Reveal from './components/Reveal.jsx';
 import ScrollThread from './components/ScrollThread.jsx';
+import SoundToggle from './components/SoundToggle.jsx';
+import SongCard from './components/SongCard.jsx';
+import { installAudioUnlock, sfx, startMusic, startMusicOnFirstTap } from './sound.js';
 import { installTapSparkles, rain } from './fx.js';
 import { Heart, Flower, Sparkle } from './components/Icons.jsx';
 import SlidingPuzzle from './games/SlidingPuzzle.jsx';
@@ -49,6 +52,11 @@ export default function App() {
   const [runId, setRunId] = useState(0);
 
   useEffect(() => installTapSparkles(), []);
+  useEffect(() => installAudioUnlock(), []);
+  useEffect(() => {
+    if (progress.envelopeOpened) return startMusicOnFirstTap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const heartsDone = progress.foundHearts.length >= hiddenHearts.hearts.length;
 
@@ -86,12 +94,14 @@ export default function App() {
     update({ letterOpened: true });
     setFinaleBurst(Date.now());
     rain(48);
+    sfx.shimmer();
   };
 
   return (
     <>
       <AmbientBackground />
       <ScrollThread />
+      <SoundToggle />
 
       <main className="page" key={runId}>
         {/* ── Scene 1 · The little invitation ── */}
@@ -109,6 +119,7 @@ export default function App() {
           </h1>
           <EnvelopeReveal
             opened={progress.envelopeOpened}
+            onStart={startMusic}
             onOpen={() => update({ envelopeOpened: true })}
             label={opening.envelopeLabel}
           >
@@ -318,21 +329,7 @@ export default function App() {
             <div className="finale__end">
               <p className="finale__closing">{finale.closing}</p>
               <Heart size={36} color="#2B2226" className="finale__heart" />
-              {song?.spotifyId && (
-                <div className="song">
-                  <p className="handwritten song__label">
-                    our song — {song.title}, {song.artist}
-                  </p>
-                  <iframe
-                    title={`${song.title} by ${song.artist} on Spotify`}
-                    src={`https://open.spotify.com/embed/track/${song.spotifyId}?utm_source=generator`}
-                    width="100%"
-                    height="152"
-                    loading="lazy"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  />
-                </div>
-              )}
+              {song && <SongCard song={song} />}
               <button type="button" className="btn" onClick={() => scrollTo('scrapbook')}>
                 {finale.revisitLabel}
               </button>

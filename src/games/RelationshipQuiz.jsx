@@ -4,6 +4,7 @@ import HeartBurst from '../components/HeartBurst.jsx';
 import ProgressIndicator from '../components/ProgressIndicator.jsx';
 import Typewriter from '../components/Typewriter.jsx';
 import { burstFrom } from '../fx.js';
+import { sfx } from '../sound.js';
 
 export default function RelationshipQuiz({ questions, finalMessage, savedAnswers = [], onAnswer, onComplete, onRestart }) {
   const valid = savedAnswers.length <= questions.length ? savedAnswers : [];
@@ -22,7 +23,9 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
     const next = [...answers.slice(0, step), i];
     setAnswers(next);
     onAnswer?.(next);
+    if (!question.options[i].correct) sfx.boing();
     if (question.options[i].correct) {
+      sfx.success();
       setBurst(Date.now());
       burstFrom(optRefs.current[i], { count: 18, spread: 120, size: [9, 20] });
     }
@@ -31,6 +34,7 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
   const advance = () => {
     const nextStep = step + 1;
     setStep(nextStep);
+    sfx.whoosh();
     if (nextStep >= questions.length) {
       setBurst(Date.now());
       onComplete?.();

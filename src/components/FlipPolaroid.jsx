@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { asset } from '../asset.js';
 import { burstFrom } from '../fx.js';
+import { sfx } from '../sound.js';
 
 /** A polaroid that flips over on tap, with the memory handwritten on the back. */
 export default function FlipPolaroid({ src, alt, caption, memory, tilt = 0 }) {
@@ -9,6 +10,8 @@ export default function FlipPolaroid({ src, alt, caption, memory, tilt = 0 }) {
 
   const toggle = () => {
     setFlipped((f) => !f);
+    sfx.whoosh();
+    setTimeout(() => sfx.flip(), 260);
     burstFrom(ref.current, { count: 10, spread: 110, size: [8, 16] }, 0.5, 0.45);
   };
 

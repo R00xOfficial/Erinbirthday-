@@ -4,6 +4,7 @@ import HeartBurst from '../components/HeartBurst.jsx';
 import { asset } from '../asset.js';
 import { useReveal } from '../hooks/useReveal.js';
 import { burstFrom, reducedMotion } from '../fx.js';
+import { sfx } from '../sound.js';
 
 const SIZE = 3;
 const BLANK = SIZE * SIZE - 1; // tile id 8 is the empty space
@@ -77,6 +78,7 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
     const t = setTimeout(() => {
       setShattering(true);
       setIntact(false);
+      sfx.shatter();
     }, 650);
     return () => clearTimeout(t);
   }, [intact, boardVisible]);
@@ -92,6 +94,7 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
       reported.current = true;
       setAutoSolving(false);
       setBurst(Date.now());
+      setTimeout(() => sfx.success(), 250);
       setTimeout(() => burstFrom(boardRef.current, { count: 36, spread: 200, size: [12, 28], duration: 1300 }), 350);
       onComplete?.();
     }
@@ -117,6 +120,7 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
       const next = slide(board, pos);
       if (next === board) return;
       setBump((b) => ({ id: board.tiles[pos], n: b.n + 1 }));
+      sfx.slide();
       setBoard(next);
       setMoves((m) => m + 1);
     },
@@ -126,6 +130,7 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
   const restart = () => {
     reported.current = false;
     setShattering(!reducedMotion());
+    sfx.shatter();
     setBoard(scramble(shuffleMoves));
     setMoves(0);
     setPeek(false);
@@ -149,7 +154,10 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
               type="button"
               className={`chip ${peek ? 'is-on' : ''}`}
               aria-pressed={peek}
-              onClick={() => setPeek((p) => !p)}
+              onClick={() => {
+                sfx.tick();
+                setPeek((p) => !p);
+              }}
             >
               Peek
             </button>
@@ -157,7 +165,10 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
               type="button"
               className={`chip ${numbers ? 'is-on' : ''}`}
               aria-pressed={numbers}
-              onClick={() => setNumbers((n) => !n)}
+              onClick={() => {
+                sfx.tick();
+                setNumbers((n) => !n);
+              }}
             >
               Hint
             </button>

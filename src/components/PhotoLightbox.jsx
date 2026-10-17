@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { asset } from '../asset.js';
+import { duckMusic, sfx } from '../sound.js';
 
 /**
  * Full-screen photo viewer. Swipe or use the arrows to move through `photos`;
@@ -10,12 +11,19 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
   const closeRef = useRef(null);
   const touch = useRef(null);
   const [dir, setDir] = useState(0);
+  const duckedByVideo = useRef(false);
+  const setVideoPlaying = (on) => {
+    if (duckedByVideo.current === on) return;
+    duckedByVideo.current = on;
+    duckMusic(on);
+  };
   const open = index !== null && index >= 0 && index < photos.length;
   const count = photos.length;
 
   const go = useCallback(
     (delta) => {
       setDir(delta);
+      sfx.flip();
       onIndex((i) => (i + delta + count) % count);
     },
     [onIndex, count]
@@ -23,6 +31,7 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
 
   useEffect(() => {
     if (!open) return;
+    sfx.whoosh();
     const previouslyFocused = document.activeElement;
     const html = document.documentElement;
     const prevOverflow = html.style.overflow;
@@ -37,10 +46,25 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
     window.addEventListener('keydown', onKey);
     return () => {
       window.removeEventListener('keydown', onKey);
+      if (duckedByVideo.current) {
+        duckedByVideo.current = false;
+        duckMusic(false);
+      }
       html.style.overflow = prevOverflow;
       previouslyFocused?.focus?.({ preventScroll: true });
     };
   }, [open, onClose, go]);
+
+  // Moving away from a playing video unmounts it without a pause event.
+  useEffect(
+    () => () => {
+      if (duckedByVideo.current) {
+        duckedByVideo.current = false;
+        duckMusic(false);
+      }
+    },
+    [index]
+  );
 
   if (!open) return null;
   const photo = photos[index];
@@ -79,6 +103,9 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
             controls
             playsInline
             preload="metadata"
+            onPlay={() => setVideoPlaying(true)}
+            onPause={() => setVideoPlaying(false)}
+            onEnded={() => setVideoPlaying(false)}
             aria-label={photo.alt || photo.caption || 'Video'}
           />
         ) : (
