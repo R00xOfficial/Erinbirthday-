@@ -1,9 +1,10 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import GameCard from '../components/GameCard.jsx';
 import HeartBurst from '../components/HeartBurst.jsx';
 import ProgressIndicator from '../components/ProgressIndicator.jsx';
 import { Heart } from '../components/Icons.jsx';
 import { asset } from '../asset.js';
+import { burstFrom } from '../fx.js';
 
 const MISMATCH_DELAY = 900;
 
@@ -53,6 +54,7 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
     lastMatch: null,
   }));
   const [burst, setBurst] = useState(0);
+  const cardRefs = useRef([]);
   const byId = Object.fromEntries(pairs.map((p) => [p.id, p]));
   const done = state.matched.length === pairs.length;
 
@@ -66,6 +68,13 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
     if (!state.lastMatch) return;
     onMatch?.(state.lastMatch);
     setBurst(Date.now());
+    // Hearts pop out of both matched cards once they've finished flipping.
+    const t = setTimeout(() => {
+      state.deck.forEach((card, i) => {
+        if (card.pairId === state.lastMatch) burstFrom(cardRefs.current[i], { count: 12, spread: 70, size: [8, 18] });
+      });
+    }, 320);
+    return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.lastMatch]);
 
@@ -85,11 +94,14 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
           const pair = byId[card.pairId];
           const isMatched = state.matched.includes(card.pairId);
           const faceUp = isMatched || state.flipped.includes(i);
+          const isWrong = state.locked && state.flipped.includes(i);
           return (
             <button
               key={card.key}
+              ref={(el) => (cardRefs.current[i] = el)}
               type="button"
-              className={`mcard ${faceUp ? 'is-up' : ''} ${isMatched ? 'is-matched' : ''}`}
+              className={`mcard ${faceUp ? 'is-up' : ''} ${isMatched ? 'is-matched' : ''} ${isWrong ? 'is-wrong' : ''} ${done ? 'is-won' : ''}`}
+              style={{ '--i': i }}
               onClick={() => dispatch({ type: 'flip', index: i })}
               aria-label={faceUp ? pair.label : `Card ${i + 1}, face down`}
               aria-pressed={faceUp}

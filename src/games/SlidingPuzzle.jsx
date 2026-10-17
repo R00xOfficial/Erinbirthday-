@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import GameCard from '../components/GameCard.jsx';
 import HeartBurst from '../components/HeartBurst.jsx';
 import { asset } from '../asset.js';
+import { useReveal } from '../hooks/useReveal.js';
+import { burstFrom, reducedMotion } from '../fx.js';
 
 const SIZE = 3;
 const BLANK = SIZE * SIZE - 1; // tile id 8 is the empty space
@@ -62,14 +64,35 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
   const [numbers, setNumbers] = useState(false);
   const [autoSolving, setAutoSolving] = useState(false);
   const [burst, setBurst] = useState(0);
-  const solved = isSolved(board.tiles);
+  // The photo starts whole and shatters into tiles when it scrolls into view.
+  const [intact, setIntact] = useState(!complete && !reducedMotion());
+  const [shattering, setShattering] = useState(false);
+  const [bump, setBump] = useState({ id: null, n: 0 });
+  const [boardRef, boardVisible] = useReveal({ threshold: 0.45 });
+  const solved = isSolved(board.tiles) && !intact;
   const reported = useRef(complete);
+
+  useEffect(() => {
+    if (!intact || !boardVisible) return;
+    const t = setTimeout(() => {
+      setShattering(true);
+      setIntact(false);
+    }, 650);
+    return () => clearTimeout(t);
+  }, [intact, boardVisible]);
+
+  useEffect(() => {
+    if (!shattering) return;
+    const t = setTimeout(() => setShattering(false), 1300);
+    return () => clearTimeout(t);
+  }, [shattering]);
 
   useEffect(() => {
     if (solved && !reported.current) {
       reported.current = true;
       setAutoSolving(false);
       setBurst(Date.now());
+      setTimeout(() => burstFrom(boardRef.current, { count: 36, spread: 200, size: [12, 28], duration: 1300 }), 350);
       onComplete?.();
     }
   }, [solved, onComplete]);
@@ -90,17 +113,19 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
 
   const tap = useCallback(
     (pos) => {
-      if (solved || autoSolving) return;
+      if (solved || autoSolving || intact) return;
       const next = slide(board, pos);
       if (next === board) return;
+      setBump((b) => ({ id: board.tiles[pos], n: b.n + 1 }));
       setBoard(next);
       setMoves((m) => m + 1);
     },
-    [board, solved, autoSolving]
+    [board, solved, autoSolving, intact]
   );
 
   const restart = () => {
     reported.current = false;
+    setShattering(!reducedMotion());
     setBoard(scramble(shuffleMoves));
     setMoves(0);
     setPeek(false);
@@ -141,24 +166,26 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
       </div>
 
       <div
-        className={`puzzle ${solved ? 'is-solved' : ''}`}
+        ref={boardRef}
+        className={`puzzle ${solved ? 'is-solved' : ''} ${intact ? 'is-intact' : ''} ${shattering ? 'is-shattering' : ''}`}
         role="group"
         aria-label={solved ? `${alt} — solved` : 'Sliding puzzle board'}
       >
         {SOLVED.map((id) => {
-          const pos = board.tiles.indexOf(id);
+          const pos = intact ? id : board.tiles.indexOf(id);
           const r = Math.floor(pos / SIZE);
           const c = pos % SIZE;
           const hr = Math.floor(id / SIZE);
           const hc = id % SIZE;
           const isBlank = id === BLANK;
-          const canMove = movable.has(pos) && !solved;
+          const canMove = movable.has(pos) && !solved && !intact;
+          const bumped = bump.id === id ? (bump.n % 2 ? 'bump-a' : 'bump-b') : '';
           return (
             <button
               key={id}
               type="button"
               className={`puzzle__tile ${isBlank ? 'is-blank' : ''} ${canMove ? 'can-move' : ''}`}
-              style={{ transform: `translate(${c * 100}%, ${r * 100}%)` }}
+              style={{ transform: `translate(${c * 100}%, ${r * 100}%)`, '--d': `${(id * 7) % 9}` }}
               onClick={() => tap(pos)}
               tabIndex={isBlank || solved ? -1 : 0}
               aria-hidden={isBlank || undefined}
@@ -166,7 +193,7 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
               aria-label={`Piece ${id + 1}${canMove ? ', can slide' : ''}`}
             >
               <span
-                className="puzzle__face"
+                className={`puzzle__face ${bumped}`}
                 style={{
                   backgroundImage: `url("${img}")`,
                   backgroundPosition: `${hc * 50}% ${hr * 50}%`,

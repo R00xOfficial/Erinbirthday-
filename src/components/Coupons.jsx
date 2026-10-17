@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal.jsx';
+import { burstFrom } from '../fx.js';
 
 const CONFIRM_WINDOW = 3500;
 
@@ -9,6 +10,7 @@ const CONFIRM_WINDOW = 3500;
  */
 export default function Coupons({ items, redeemed = {}, onRedeem, onUndo, redeemNote }) {
   const [armed, setArmed] = useState(null);
+  const refs = useRef({});
 
   useEffect(() => {
     if (!armed) return;
@@ -23,7 +25,11 @@ export default function Coupons({ items, redeemed = {}, onRedeem, onUndo, redeem
         const isArmed = armed === c.id;
         return (
           <Reveal key={c.id} delay={(i % 3) * 60}>
-            <article className={`coupon ${usedOn ? 'is-redeemed' : ''}`} aria-label={`Coupon: ${c.title}`}>
+            <article
+              ref={(el) => (refs.current[c.id] = el)}
+              className={`coupon ${usedOn ? 'is-redeemed' : ''} ${isArmed ? 'is-armed' : ''}`}
+              aria-label={`Coupon: ${c.title}`}
+            >
               <div className="coupon__stub" aria-hidden="true">
                 <span className="coupon__emoji">{c.emoji}</span>
               </div>
@@ -46,6 +52,7 @@ export default function Coupons({ items, redeemed = {}, onRedeem, onUndo, redeem
                       if (isArmed) {
                         setArmed(null);
                         onRedeem?.(c.id);
+                        setTimeout(() => burstFrom(refs.current[c.id], { count: 20, spread: 120 }, 0.8, 0.5), 180);
                       } else {
                         setArmed(c.id);
                       }

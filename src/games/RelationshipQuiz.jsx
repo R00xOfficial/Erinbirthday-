@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import GameCard from '../components/GameCard.jsx';
 import HeartBurst from '../components/HeartBurst.jsx';
 import ProgressIndicator from '../components/ProgressIndicator.jsx';
+import Typewriter from '../components/Typewriter.jsx';
+import { burstFrom } from '../fx.js';
 
 export default function RelationshipQuiz({ questions, finalMessage, savedAnswers = [], onAnswer, onComplete, onRestart }) {
   const valid = savedAnswers.length <= questions.length ? savedAnswers : [];
@@ -10,6 +12,7 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
   // so she always gets to read the reaction first.
   const [step, setStep] = useState(valid.length);
   const [burst, setBurst] = useState(0);
+  const optRefs = useRef([]);
   const done = step >= questions.length;
   const question = questions[step];
   const chosen = answers[step];
@@ -19,7 +22,10 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
     const next = [...answers.slice(0, step), i];
     setAnswers(next);
     onAnswer?.(next);
-    if (question.options[i].correct) setBurst(Date.now());
+    if (question.options[i].correct) {
+      setBurst(Date.now());
+      burstFrom(optRefs.current[i], { count: 18, spread: 120, size: [9, 20] });
+    }
   };
 
   const advance = () => {
@@ -57,8 +63,10 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
               return (
                 <button
                   key={i}
+                  ref={(el) => (optRefs.current[i] = el)}
                   type="button"
                   className={`quiz__opt ${state}`}
+                  style={{ '--i': i }}
                   onClick={() => choose(i)}
                   aria-pressed={picked}
                   disabled={chosen !== undefined && !picked}
@@ -71,7 +79,7 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
           <div className="quiz__reaction" aria-live="polite">
             {chosen !== undefined && (
               <>
-                <p className="handwritten reaction-text">{question.options[chosen].reaction}</p>
+                <Typewriter className="handwritten reaction-text" text={question.options[chosen].reaction} />
                 <button type="button" className="btn" onClick={advance}>
                   {step + 1 < questions.length ? 'Next question' : 'See my result'}
                 </button>
@@ -85,7 +93,7 @@ export default function RelationshipQuiz({ questions, finalMessage, savedAnswers
         <div className="game-reward">
           <ol className="paper-trail" aria-label="Your answers">
             {questions.map((q, qi) => (
-              <li key={qi} className="paper-note" style={{ '--tilt': `${qi % 2 ? 2 : -2}deg` }}>
+              <li key={qi} className="paper-note" style={{ '--tilt': `${qi % 2 ? 2 : -2}deg`, '--i': qi }}>
                 <span className="paper-note__q">{q.q}</span>
                 <span className="paper-note__a">{q.options[answers[qi]]?.text ?? '—'}</span>
               </li>

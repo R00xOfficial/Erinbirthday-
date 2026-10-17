@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { asset } from '../asset.js';
 
@@ -9,11 +9,15 @@ import { asset } from '../asset.js';
 export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
   const closeRef = useRef(null);
   const touch = useRef(null);
+  const [dir, setDir] = useState(0);
   const open = index !== null && index >= 0 && index < photos.length;
   const count = photos.length;
 
   const go = useCallback(
-    (delta) => onIndex((i) => (i + delta + count) % count),
+    (delta) => {
+      setDir(delta);
+      onIndex((i) => (i + delta + count) % count);
+    },
     [onIndex, count]
   );
 
@@ -67,7 +71,7 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
       <button ref={closeRef} type="button" className="lightbox__close" onClick={onClose} aria-label="Close photo">
         ×
       </button>
-      <figure className="lightbox__figure" key={index}>
+      <figure className={`lightbox__figure ${dir > 0 ? 'from-right' : dir < 0 ? 'from-left' : 'from-zoom'}`} key={index}>
         {photo.video ? (
           <video
             src={asset(photo.video)}

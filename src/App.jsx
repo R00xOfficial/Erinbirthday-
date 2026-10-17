@@ -1,14 +1,17 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { content } from './content/birthdayContent.js';
 import { useProgress } from './hooks/useProgress.js';
 import AmbientBackground from './components/AmbientBackground.jsx';
 import SceneSection from './components/SceneSection.jsx';
 import ScrapbookPhoto from './components/ScrapbookPhoto.jsx';
+import FlipPolaroid from './components/FlipPolaroid.jsx';
 import PhotoLightbox from './components/PhotoLightbox.jsx';
 import EnvelopeReveal from './components/EnvelopeReveal.jsx';
 import HeartBurst from './components/HeartBurst.jsx';
 import Coupons from './components/Coupons.jsx';
 import Reveal from './components/Reveal.jsx';
+import ScrollThread from './components/ScrollThread.jsx';
+import { installTapSparkles, rain } from './fx.js';
 import { Heart, Flower, Sparkle } from './components/Icons.jsx';
 import SlidingPuzzle from './games/SlidingPuzzle.jsx';
 import MemoryMatch from './games/MemoryMatch.jsx';
@@ -40,11 +43,12 @@ const SCRAP_TILTS = [-3, 2.5, -1.5, 3.5, -2.5, 1.5];
 
 export default function App() {
   const [progress, update, resetProgress] = useProgress(content.storageKey);
-  const [openStory, setOpenStory] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [finaleBurst, setFinaleBurst] = useState(0);
   // Bumped on "start over" to remount the games with fresh internal state.
   const [runId, setRunId] = useState(0);
+
+  useEffect(() => installTapSparkles(), []);
 
   const heartsDone = progress.foundHearts.length >= hiddenHearts.hearts.length;
 
@@ -81,18 +85,27 @@ export default function App() {
   const openLetter = () => {
     update({ letterOpened: true });
     setFinaleBurst(Date.now());
+    rain(48);
   };
 
   return (
     <>
       <AmbientBackground />
+      <ScrollThread />
 
       <main className="page" key={runId}>
         {/* ── Scene 1 · The little invitation ── */}
         <section id="invitation" className="scene scene--hero" aria-labelledby="hero-title">
           <p className="hero__kicker">{opening.kicker}</p>
-          <h1 id="hero-title" className="hero__name">
-            {content.herName}
+          <h1 id="hero-title" className="hero__name" aria-label={content.herName}>
+            {[...content.herName].map((ch, i) => (
+              <span key={i} className="hero__ltr" style={{ '--i': i }} aria-hidden="true">
+                {ch}
+              </span>
+            ))}
+            <svg className="hero__underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true">
+              <path pathLength="1" d="M4 12 C 40 4, 80 18, 120 9 S 180 6, 196 10" />
+            </svg>
           </h1>
           <EnvelopeReveal
             opened={progress.envelopeOpened}
@@ -122,26 +135,18 @@ export default function App() {
         {/* ── Scene 2 · Our little story ── */}
         <SceneSection id="story" eyebrow="chapter one" title={story.title} intro={story.intro}>
           <div className="story">
-            {story.photos.map((p, i) => {
-              const open = openStory === i;
-              return (
-                <Reveal key={p.src} className={`story__item story__item--${i % 2 ? 'right' : 'left'}`} delay={i * 80}>
-                  <ScrapbookPhoto
-                    src={p.src}
-                    alt={p.alt}
-                    caption={p.caption}
-                    tilt={STORY_TILTS[i % STORY_TILTS.length]}
-                    onClick={() => setOpenStory(open ? null : i)}
-                    label={`${p.caption} — tap to ${open ? 'hide' : 'read'} the memory`}
-                    aria-expanded={open}
-                  />
-                  <div className={`story__memory ${open ? 'is-open' : ''}`} aria-hidden={!open}>
-                    <p className="handwritten">{p.memory}</p>
-                  </div>
-                  {!open && <p className="tap-hint">tap the photo</p>}
-                </Reveal>
-              );
-            })}
+            {story.photos.map((p, i) => (
+              <Reveal key={p.src} className={`story__item story__item--${i % 2 ? 'right' : 'left'}`} delay={i * 80}>
+                <FlipPolaroid
+                  src={p.src}
+                  alt={p.alt}
+                  caption={p.caption}
+                  memory={p.memory}
+                  tilt={STORY_TILTS[i % STORY_TILTS.length]}
+                />
+                <p className="tap-hint">tap the photo to flip it</p>
+              </Reveal>
+            ))}
           </div>
           <Reveal className="bridge">
             <p className="handwritten">…and somewhere along the way, we became a little puzzle of our own.</p>
@@ -343,7 +348,6 @@ export default function App() {
             onClick={() => {
               if (window.confirm('Start everything over from the beginning?')) {
                 resetProgress();
-                setOpenStory(null);
                 setRunId((r) => r + 1);
                 window.scrollTo(0, 0);
               }

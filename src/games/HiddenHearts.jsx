@@ -4,6 +4,7 @@ import HeartBurst from '../components/HeartBurst.jsx';
 import ProgressIndicator from '../components/ProgressIndicator.jsx';
 import ScrapbookPhoto from '../components/ScrapbookPhoto.jsx';
 import { Heart } from '../components/Icons.jsx';
+import { burstFrom } from '../fx.js';
 
 const HINT_AFTER = 9000;
 
@@ -13,7 +14,7 @@ const petals = (cx, cy, r, color) =>
   ));
 
 /** The garden illustration (400×300). Hidden-heart spots line up with objects in it. */
-function Garden() {
+function Garden({ neigh = 0 }) {
   return (
     <svg className="garden__art" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
       <defs>
@@ -27,7 +28,7 @@ function Garden() {
       <circle cx="52" cy="48" r="26" fill="#FFE7A3" />
       <circle cx="52" cy="48" r="36" fill="#FFE7A3" opacity=".35" />
       {/* clouds */}
-      <g fill="#fff">
+      <g fill="#fff" className="g-cloud">
         <ellipse cx="296" cy="54" rx="42" ry="16" />
         <ellipse cx="312" cy="44" rx="26" ry="18" />
         <ellipse cx="280" cy="46" rx="20" ry="14" />
@@ -38,9 +39,11 @@ function Garden() {
       <path d="M0 225 Q120 195 240 222 T400 210 V300 H0Z" fill="#A6D8C2" />
       {/* tree */}
       <rect x="342" y="160" width="12" height="60" rx="4" fill="#9C7461" />
-      <circle cx="348" cy="138" r="34" fill="#7FC2A5" />
-      <circle cx="326" cy="152" r="22" fill="#8CCBAF" />
-      <circle cx="370" cy="154" r="22" fill="#8CCBAF" />
+      <g className="g-sway g-tree">
+        <circle cx="348" cy="138" r="34" fill="#7FC2A5" />
+        <circle cx="326" cy="152" r="22" fill="#8CCBAF" />
+        <circle cx="370" cy="154" r="22" fill="#8CCBAF" />
+      </g>
       {/* bench */}
       <rect x="178" y="186" width="62" height="8" rx="3" fill="#B98670" />
       <rect x="178" y="176" width="62" height="6" rx="3" fill="#B98670" />
@@ -55,8 +58,8 @@ function Garden() {
         [262, 258, '#C9B8EE'],
         [300, 236, '#F4A7BB'],
         [372, 262, '#C94F78'],
-      ].map(([x, y, c]) => (
-        <g key={`${x}-${y}`}>
+      ].map(([x, y, c], i) => (
+        <g key={`${x}-${y}`} className="g-sway" style={{ animationDelay: `${-i * 0.7}s` }}>
           <rect x={x - 1.5} y={y} width="3" height="30" fill="#5FA584" />
           {petals(x, y, 9, c)}
           <circle cx={x} cy={y} r="4" fill="#FFF1C9" />
@@ -64,7 +67,8 @@ function Garden() {
       ))}
       {/* a very silly horse, for Erin */}
       <g transform="translate(92 128)">
-        <path d="M14 34 q-14 6 -10 26" stroke="#4A3328" strokeWidth="5" strokeLinecap="round" fill="none" />
+        <g key={neigh} className={`g-horse ${neigh ? 'is-hopping' : ''}`}>
+        <path className="g-tail" d="M14 34 q-14 6 -10 26" stroke="#4A3328" strokeWidth="5" strokeLinecap="round" fill="none" />
         {[18, 28, 52, 62].map((x) => (
           <g key={x}>
             <rect x={x} y="44" width="6" height="30" rx="2" fill="#B07F5A" />
@@ -75,6 +79,7 @@ function Garden() {
         <path d="M30 34 c-3 -4 -9 -2 -6 3 l6 6 l6 -6 c3 -5 -3 -7 -6 -3z" fill="#2B2226" />
         <path d="M58 36 L66 6 L80 10 L72 44 Z" fill="#C99A74" />
         <path d="M67 3 Q60 18 57 36" stroke="#4A3328" strokeWidth="6" strokeLinecap="round" fill="none" />
+        <g className="g-head">
         <path d="M72 0 L74 -10 L79 -1 Z" fill="#B07F5A" />
         <ellipse cx="82" cy="10" rx="16" ry="10" transform="rotate(25 82 10)" fill="#C99A74" />
         <ellipse cx="92" cy="17" rx="8" ry="7" fill="#E2BFA0" />
@@ -86,10 +91,16 @@ function Garden() {
         <path d="M89 25 q4 8 8 1" fill="#F4A7BB" />
         <rect x="85" y="19" width="13" height="6" rx="1.5" fill="#fff" stroke="#2B2226" strokeWidth="1" />
         <path d="M89.3 19 v6 M93.6 19 v6" stroke="#2B2226" strokeWidth="0.8" />
+        </g>
+        </g>
       </g>
       {/* tiny butterflies */}
-      <path d="M150 92 q-8 -10 -2 -12 q4 0 2 12 q8 -10 12 -6 q0 6 -12 6" fill="#C9B8EE" />
-      <path d="M248 98 q-6 -8 -1 -9 q3 0 1 9 q6 -8 9 -5 q0 5 -9 5" fill="#F4A7BB" />
+      <g className="g-fly">
+        <path className="g-wing" d="M150 92 q-8 -10 -2 -12 q4 0 2 12 q8 -10 12 -6 q0 6 -12 6" fill="#C9B8EE" />
+      </g>
+      <g className="g-fly g-fly--2">
+        <path className="g-wing" d="M248 98 q-6 -8 -1 -9 q3 0 1 9 q6 -8 9 -5 q0 5 -9 5" fill="#F4A7BB" />
+      </g>
     </svg>
   );
 }
@@ -122,6 +133,7 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
     setFound(next);
     setLatest(heart);
     onFind?.(heart.id);
+    burstFrom(e.currentTarget, { count: 12, spread: 64, size: [7, 15] });
 
     // Fly a copy of the heart up to the counter.
     const scene = sceneRef.current?.getBoundingClientRect();
@@ -159,7 +171,7 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
       </div>
 
       <div className="garden" ref={sceneRef}>
-        <Garden />
+        <Garden neigh={neigh} />
         <button
           type="button"
           className="garden__horse"
