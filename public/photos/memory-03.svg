@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE6CF"/><stop offset="1" stop-color="#F8C49C"/>
+    </linearGradient>
+    <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.2" fill="#fff" opacity=".45"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g)"/>
+  <rect width="800" height="1000" fill="url(#dots)"/>
+  <circle cx="144" cy="200" r="72" fill="#fff" opacity=".35"/>
+  <circle cx="680" cy="780" r="112.00000000000001" fill="#fff" opacity=".25"/>
+  <g transform="translate(400 470) scale(3.076923076923077)"><ellipse rx="12" ry="22" cy="-20" fill="#C9785A" opacity=".85" transform="rotate(0)"/><ellipse rx="12" ry="22" cy="-20" fill="#C9785A" opacity=".85" transform="rotate(72)"/><ellipse rx="12" ry="22" cy="-20" fill="#C9785A" opacity=".85" transform="rotate(144)"/><ellipse rx="12" ry="22" cy="-20" fill="#C9785A" opacity=".85" transform="rotate(216)"/><ellipse rx="12" ry="22" cy="-20" fill="#C9785A" opacity=".85" transform="rotate(288)"/><circle r="11" fill="#fff"/></g>
+  <text x="400" y="800" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#C9785A">memory 3</text>
+  <text x="400" y="848" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#C9785A" opacity=".7">replace with memory-03.jpg</text>
+</svg>
