@@ -217,6 +217,24 @@ export const content = {
     notes: ['more of these, please', 'cheesy chips soon?', 'my favourite person'],
   },
 
+  // ── Coupons (between the scrapbook and the finale) ───────────────────────
+  // Redemptions are saved on HER phone only — so she screenshots and sends it.
+  coupons: {
+    title: 'Some coupons, just for you',
+    intro: 'No expiry dates. Tap one whenever you want to use it.',
+    redeemNote: 'Screenshot this and send it to me — I’ll make it happen 🖤',
+    items: [
+      { id: 'pancakes', emoji: '🥞', title: 'Pancakes in bed', detail: 'Made by me, served to you, toppings of your choice.' },
+      { id: 'restaurant', emoji: '🍽️', title: 'Dinner at your favourite restaurant', detail: 'My treat. Order whatever you want.' },
+      { id: 'newforest', emoji: '🌳', title: 'A day back in the New Forest', detail: 'Picnic included. We’ll go and visit our initials.' },
+      { id: 'hill', emoji: '🍟', title: 'Cheesy chips up the hill', detail: 'I’m buying. Deep talks optional but encouraged.' },
+      { id: 'horses', emoji: '🐴', title: 'A day out to see some horses', detail: 'Silly horse photos guaranteed.' },
+      { id: 'movie', emoji: '🎬', title: 'Movie night, your pick', detail: 'Blankets, snacks, and zero complaints from me.' },
+      { id: 'argument', emoji: '🏆', title: 'One argument win', detail: 'Valid for any debate. Yes, even the motorbike one.' },
+      { id: 'dayplanned', emoji: '🗺️', title: 'A whole day planned by me', detail: 'You just turn up. I’ll sort everything else.' },
+    ],
+  },
+
   // ── Scene 8 · The finale ──────────────────────────────────────────────────
   finale: {
     title: 'A little letter, just for you',

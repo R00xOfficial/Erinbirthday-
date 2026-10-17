@@ -7,6 +7,7 @@ import ScrapbookPhoto from './components/ScrapbookPhoto.jsx';
 import PhotoLightbox from './components/PhotoLightbox.jsx';
 import EnvelopeReveal from './components/EnvelopeReveal.jsx';
 import HeartBurst from './components/HeartBurst.jsx';
+import Coupons from './components/Coupons.jsx';
 import Reveal from './components/Reveal.jsx';
 import { Heart, Flower, Sparkle } from './components/Icons.jsx';
 import SlidingPuzzle from './games/SlidingPuzzle.jsx';
@@ -14,7 +15,7 @@ import MemoryMatch from './games/MemoryMatch.jsx';
 import HiddenHearts from './games/HiddenHearts.jsx';
 import RelationshipQuiz from './games/RelationshipQuiz.jsx';
 
-const { opening, story, puzzle, match, hiddenHearts, quiz, scrapbook, finale, song } = content;
+const { opening, story, puzzle, match, hiddenHearts, quiz, scrapbook, coupons, finale, song } = content;
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({
@@ -253,6 +254,32 @@ export default function App() {
               </ul>
             </Reveal>
           )}
+        </SceneSection>
+
+        <Doodles />
+
+        {/* ── Coupons ── */}
+        <SceneSection id="coupons" eyebrow="a little extra" title={coupons.title} intro={coupons.intro}>
+          <Coupons
+            items={coupons.items}
+            redeemed={progress.redeemedCoupons}
+            redeemNote={coupons.redeemNote}
+            onRedeem={(id) =>
+              update((p) => ({
+                redeemedCoupons: {
+                  ...p.redeemedCoupons,
+                  [id]: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+                },
+              }))
+            }
+            onUndo={(id) =>
+              update((p) => {
+                const next = { ...p.redeemedCoupons };
+                delete next[id];
+                return { redeemedCoupons: next };
+              })
+            }
+          />
         </SceneSection>
 
         <Doodles />

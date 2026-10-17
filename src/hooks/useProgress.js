@@ -9,6 +9,7 @@ export const initialProgress = {
   quizComplete: false,
   scrapbookOpened: false,
   letterOpened: false,
+  redeemedCoupons: {},
 };
 
 function load(key) {

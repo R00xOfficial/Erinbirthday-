@@ -1457,6 +1457,165 @@ h3 {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   Coupons — tear-off tickets
+   ───────────────────────────────────────────────────────────────────────────── */
+.coupons {
+  display: grid;
+  gap: 16px;
+}
+
+.coupon {
+  --notch: 12px;
+  position: relative;
+  display: flex;
+  min-height: 118px;
+  background: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  /* Notches cut into the top and bottom where the stub tears off. */
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 92px 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at 92px 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 92px 0, transparent 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at 92px 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+}
+
+.coupon__stub {
+  flex: 0 0 92px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.4) 0 14%, transparent 15%),
+    linear-gradient(135deg, var(--pink), var(--rose));
+  border-right: 3px dashed #fff;
+}
+
+.coupon__emoji {
+  font-size: 2.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.coupon__body {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px 14px;
+}
+
+.coupon__kicker {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+.coupon__title {
+  margin: 2px 0 2px;
+  font-family: var(--font-hand);
+  font-size: 1.65rem;
+  line-height: 1.05;
+}
+
+.coupon__detail {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+
+.coupon__btn {
+  min-height: var(--tap);
+  padding: 6px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 0.9rem;
+  transition:
+    background var(--fast),
+    color var(--fast),
+    transform var(--fast) var(--ease-out);
+}
+
+.coupon__btn:active {
+  transform: scale(0.96);
+}
+
+.coupon__btn.is-armed {
+  background: var(--ink);
+  color: #fff;
+  animation: wiggle 400ms ease-in-out;
+}
+
+.coupon.is-redeemed .coupon__stub {
+  filter: grayscale(0.6);
+  opacity: 0.75;
+}
+
+.coupon.is-redeemed .coupon__title,
+.coupon.is-redeemed .coupon__detail {
+  opacity: 0.55;
+}
+
+.coupon__used {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.coupon__undo {
+  min-height: 32px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--text-soft);
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+
+.coupon__stamp {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -6px;
+  padding: 4px 12px;
+  border: 3px solid var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  color: var(--ink);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: rotate(-10deg);
+  opacity: 0.85;
+  pointer-events: none;
+  animation: stamp 380ms var(--ease-bounce) both;
+}
+
+@keyframes stamp {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(1.8);
+  }
+}
+
+.coupon__note {
+  margin: 8px 4px 0;
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  color: var(--rose);
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    Lightbox
    ───────────────────────────────────────────────────────────────────────────── */
 .lightbox {
