@@ -190,6 +190,7 @@ export const content = {
     intro: 'Tap any photo to see it bigger. Swipe to wander through them all.',
     photos: [
       { src: 'photos/erin-lightning-mcqueen.jpg', alt: 'Erin giving a thumbs up next to Lightning McQueen', caption: 'ka-chow! ⚡', date: '' },
+      { src: 'photos/erin-duck-sunset.jpg', alt: 'Erin holding a duck by the pond at sunset', caption: 'another day, another bird best friend 🦆', date: '' },
       { src: 'photos/erin-pigeon.jpg', alt: 'Erin holding a pigeon outside the shop', caption: 'you and your new pigeon friend', date: '' },
       { src: 'photos/erin-cat.jpg', alt: 'Erin with a white cat wearing pink makeup', caption: 'glam cat, by Erin 💄', date: '' },
       { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: '' },
