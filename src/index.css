@@ -1341,9 +1341,9 @@ h3 {
 
 .sticky-note {
   position: absolute;
-  right: -6px;
-  bottom: -16px;
-  max-width: 70%;
+  right: -8px;
+  top: -14px;
+  max-width: 60%;
   padding: 6px 10px;
   background: #fff3b8;
   font-family: var(--font-hand);

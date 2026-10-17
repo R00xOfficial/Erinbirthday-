@@ -39,23 +39,23 @@ export const content = {
     intro: 'It started in January 2025, somewhere very unexpected…',
     photos: [
       {
-        src: 'photos/story-1.svg',
-        alt: 'One of our first photos together',
+        src: 'photos/story-1.jpg',
+        alt: 'A selfie of us together',
         caption: 'where it all started',
         memory:
           'A Tesco car park in Fratton, of all places. You said “I wish I could find a man like that,” and I said “I am a man like that.” Smooth? Debatable. Did it work? Yes.',
       },
       {
-        src: 'photos/story-2.svg',
-        alt: 'Playzone adult night',
+        src: 'photos/story-2.jpg',
+        alt: 'The two of us pulling silly faces',
         caption: 'playzone adult night',
         memory:
           'One of our first nights out together — two grown adults bouncing around like kids. I knew then that you were my kind of goofy.',
       },
       {
-        src: 'photos/story-3.svg',
-        alt: 'Our initials in concrete in the New Forest',
-        caption: 'our spot, forever',
+        src: 'photos/story-3.jpg',
+        alt: 'A cosy selfie of us',
+        caption: 'us, forever',
         memory:
           'We poured concrete with our initials in it in the New Forest, so we’d always have a spot in our favourite place. It’s still there. So are we.',
       },
@@ -67,8 +67,8 @@ export const content = {
   puzzle: {
     title: 'Put us back together',
     intro: 'Slide the pieces until we’re whole again. Tap a tile next to the empty space to move it.',
-    src: 'photos/puzzle.svg',
-    alt: 'A photo of us together',
+    src: 'photos/puzzle.jpg',
+    alt: 'The two of us on holiday',
     solvedCaption: 'There we are — right where we belong.',
     shuffleMoves: 80,
   },
@@ -132,8 +132,8 @@ export const content = {
       { id: 'sun', x: 13, y: 16, note: 'The way you are with animals says everything about how kind your heart is.' },
       { id: 'bench', x: 52, y: 64, note: 'You’re the most thoughtful person I know. I notice the little things you do.' },
     ],
-    rewardPhoto: 'photos/hearts-reward.svg',
-    rewardCaption: 'You found every heart. Here’s your prize.',
+    rewardPhoto: 'photos/hearts-reward.jpg',
+    rewardCaption: 'You found every heart. Your prize: you, caught mid-pizza and absolutely not having it 🍕',
   },
 
   // ── Scene 6 · Relationship quiz (four questions × three answers) ──────────
@@ -189,18 +189,10 @@ export const content = {
     title: 'All my favourite memories',
     intro: 'Tap any photo to see it bigger. Swipe to wander through them all.',
     photos: [
-      { src: 'photos/memory-01.svg', caption: 'you & me', date: '' },
-      { src: 'photos/memory-02.svg', caption: 'the New Forest', date: '' },
-      { src: 'photos/memory-03.svg', caption: 'you, being goofy', date: '' },
-      { src: 'photos/memory-04.svg', caption: 'up on the hill', date: '' },
-      { src: 'photos/memory-05.svg', caption: 'our spot', date: '' },
-      { src: 'photos/memory-06.svg', caption: 'a good day', date: '' },
-      { src: 'photos/memory-07.svg', caption: 'you, being beautiful', date: '' },
-      { src: 'photos/memory-08.svg', caption: 'little adventures', date: '' },
-      { src: 'photos/memory-09.svg', caption: 'just because', date: '' },
-      { src: 'photos/memory-10.svg', caption: 'more of these', date: '' },
-      { src: 'photos/memory-11.svg', caption: 'my favourite person', date: '' },
-      { src: 'photos/memory-12.svg', caption: 'us, always', date: '' },
+      { src: 'photos/erin-lightning-mcqueen.jpg', alt: 'Erin giving a thumbs up next to Lightning McQueen', caption: 'ka-chow! ⚡', date: '' },
+      { src: 'photos/erin-pigeon.jpg', alt: 'Erin holding a pigeon outside the shop', caption: 'you and your new pigeon friend', date: '' },
+      { src: 'photos/erin-cat.jpg', alt: 'Erin cuddling a white cat', caption: 'animals just love you', date: '' },
+      { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: '' },
     ],
     // Small handwritten notes scattered between the photos.
     notes: ['more of these, please', 'cheesy chips soon?', 'my favourite person'],
@@ -209,7 +201,7 @@ export const content = {
   // ── Scene 8 · The finale ──────────────────────────────────────────────────
   finale: {
     title: 'A little letter, just for you',
-    photo: 'photos/finale.svg',
+    photo: 'photos/finale.jpg',
     photoCaption: 'my favourite photo of you',
     envelopeLabel: 'one last envelope',
     greeting: 'Dear Erin,',
