@@ -172,7 +172,7 @@ export const content = {
         ],
       },
       {
-        q: 'Whose bike is better?',
+        q: 'Whose motorbike is better? 🏍️',
         options: [
           { text: 'Mine, obviously', reaction: 'We’ll have to agree to disagree. (You’re wrong.)' },
           { text: 'Yours', reaction: 'Finally! I’m screenshotting this.' },
