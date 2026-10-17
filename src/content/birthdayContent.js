@@ -99,7 +99,7 @@ export const content = {
       },
       {
         id: 'hill',
-        emoji: '⛰️',
+        src: 'photos/erin-up-the-hill.jpg',
         label: 'The hill',
         memory: 'Sitting up on the hill with you, talking about everything. Those deep talks mean more to me than you know.',
       },
@@ -200,6 +200,7 @@ export const content = {
       { src: 'photos/erin-lightning-mcqueen.jpg', alt: 'Erin giving a thumbs up next to Lightning McQueen', caption: 'ka-chow! ⚡', date: '' },
       { src: 'photos/erin-duck-sunset.jpg', alt: 'Erin holding a duck by the pond at sunset', caption: 'another day, another bird best friend 🦆', date: '' },
       { src: 'photos/weald-downland-postcard.svg', alt: 'An illustrated postcard of the Weald & Downland Living Museum', caption: 'our day at Weald & Downland', date: 'no photos, just memories' },
+      { src: 'photos/erin-up-the-hill.jpg', alt: 'Erin up the hill wearing a paper bag hat, mid-bite', caption: 'up the hill — snacks, deep talks & a paper-bag hat', date: 'the hill' },
       { src: 'photos/erin-pigeon.jpg', alt: 'Erin holding a pigeon outside the shop', caption: 'you and your new pigeon friend', date: '' },
       { src: 'photos/erin-cat.jpg', alt: 'Erin with Skelly the cat, wearing pink makeup', caption: 'Skelly, our baby — makeup by Erin 💄', date: '' },
       { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: 'Tenerife' },
