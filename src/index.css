@@ -1543,6 +1543,23 @@ h3 {
   --rise: -90vh;
 }
 
+.song {
+  width: 100%;
+  max-width: 460px;
+}
+
+.song__label {
+  margin: 0 0 8px;
+  color: var(--text-soft);
+  font-size: 1.3rem;
+}
+
+.song iframe {
+  display: block;
+  border: 0;
+  border-radius: 12px;
+}
+
 .footer {
   padding: 30px 0 calc(40px + env(safe-area-inset-bottom));
   text-align: center;

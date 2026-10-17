@@ -14,7 +14,7 @@ import MemoryMatch from './games/MemoryMatch.jsx';
 import HiddenHearts from './games/HiddenHearts.jsx';
 import RelationshipQuiz from './games/RelationshipQuiz.jsx';
 
-const { opening, story, puzzle, match, hiddenHearts, quiz, scrapbook, finale } = content;
+const { opening, story, puzzle, match, hiddenHearts, quiz, scrapbook, finale, song } = content;
 
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({
@@ -281,6 +281,21 @@ export default function App() {
             <div className="finale__end">
               <p className="finale__closing">{finale.closing}</p>
               <Heart size={36} color="#C94F78" className="finale__heart" />
+              {song?.spotifyId && (
+                <div className="song">
+                  <p className="handwritten song__label">
+                    our song — {song.title}, {song.artist}
+                  </p>
+                  <iframe
+                    title={`${song.title} by ${song.artist} on Spotify`}
+                    src={`https://open.spotify.com/embed/track/${song.spotifyId}?utm_source=generator`}
+                    width="100%"
+                    height="152"
+                    loading="lazy"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  />
+                </div>
+              )}
               <button type="button" className="btn" onClick={() => scrollTo('scrapbook')}>
                 {finale.revisitLabel}
               </button>

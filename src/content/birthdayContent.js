@@ -11,17 +11,24 @@
 
 export const content = {
   herName: 'Erin',
-  fromName: 'Me', // how you sign off
+  fromName: 'Your baby chicken <3', // how you sign off
   // Used for the localStorage key; change it to reset everyone's saved progress.
   storageKey: 'erin-birthday-progress-v1',
+
+  // Our song — shown as a tap-to-play Spotify player on the last page.
+  song: {
+    title: 'I Love You',
+    artist: 'Fontaines D.C.',
+    spotifyId: '5XhMgAWzou6EjDmQtoyoZE',
+  },
 
   // ── Scene 1 · The little invitation ───────────────────────────────────────
   opening: {
     kicker: 'a little something for',
     envelopeLabel: 'tap to open',
     message: [
-      'Happy birthday, my love.',
-      'I made you a little corner of the internet, full of us. Take your time, play the games, and read the tiny notes along the way.',
+      'Happy birthday, Erin.',
+      'I made you a little corner of the internet, full of us — our places, our memories and our photos. Take your time, play the games, and read the little notes along the way.',
     ],
     scrollPrompt: 'scroll down, gently',
   },
@@ -29,27 +36,28 @@ export const content = {
   // ── Scene 2 · Our little story (exactly three photos) ─────────────────────
   story: {
     title: 'Our little story',
-    intro: 'It started like this…',
+    intro: 'It started in January 2025, somewhere very unexpected…',
     photos: [
       {
         src: 'photos/story-1.svg',
-        alt: 'Our first favourite photo together',
-        caption: 'the very beginning',
+        alt: 'One of our first photos together',
+        caption: 'where it all started',
         memory:
-          'This is one of the first photos of us I ever loved. I remember thinking I wanted a hundred more just like it.',
+          'A Tesco car park in Fratton, of all places. You said “I wish I could find a man like that,” and I said “I am a man like that.” Smooth? Debatable. Did it work? Yes.',
       },
       {
         src: 'photos/story-2.svg',
-        alt: 'A memorable date',
-        caption: 'that date',
+        alt: 'Playzone adult night',
+        caption: 'playzone adult night',
         memory:
-          'I was nervous the whole way there, and then you laughed at something I said and I forgot to be nervous at all.',
+          'One of our first nights out together — two grown adults bouncing around like kids. I knew then that you were my kind of goofy.',
       },
       {
         src: 'photos/story-3.svg',
-        alt: 'A silly photo of us',
-        caption: 'peak silliness',
-        memory: 'No context will be provided. You know exactly what happened here.',
+        alt: 'Our initials in concrete in the New Forest',
+        caption: 'our spot, forever',
+        memory:
+          'We poured concrete with our initials in it in the New Forest, so we’d always have a spot in our favourite place. It’s still there. So are we.',
       },
     ],
   },
@@ -61,7 +69,7 @@ export const content = {
     intro: 'Slide the pieces until we’re whole again. Tap a tile next to the empty space to move it.',
     src: 'photos/puzzle.svg',
     alt: 'A photo of us together',
-    solvedCaption: 'There we are. Always better together.',
+    solvedCaption: 'There we are — right where we belong.',
     shuffleMoves: 80,
   },
 
@@ -71,12 +79,42 @@ export const content = {
     title: 'Little things I remember',
     intro: 'Find the pairs. Each one unlocks a tiny memory.',
     pairs: [
-      { id: 'trip', src: 'photos/match-1.svg', label: 'Our trip', memory: 'The trip where everything went wrong and it was still perfect.' },
-      { id: 'food', emoji: '🍕', label: 'Favourite food', memory: 'Late-night pizza, shared fairly (you got the bigger half).' },
-      { id: 'song', src: 'photos/match-3.svg', label: 'Our song', memory: 'I can’t hear it without thinking of you.' },
-      { id: 'flowers', emoji: '🌷', label: 'Flowers', memory: 'The first flowers I ever got you. You kept one.' },
-      { id: 'joke', emoji: '🦆', label: 'The inside joke', memory: 'Still funny. Will always be funny. Nobody else gets it.' },
-      { id: 'nights', src: 'photos/match-6.svg', label: 'Late nights', memory: 'Talking until 3am and somehow never running out of things to say.' },
+      {
+        id: 'tesco',
+        emoji: '🛒',
+        label: 'Where we met',
+        memory: 'The most romantic car park in Portsmouth. Fratton Tesco, forever iconic.',
+      },
+      {
+        id: 'playzone',
+        emoji: '🤸',
+        label: 'Playzone adult night',
+        memory: 'Proof that we are both just big kids. I wouldn’t have it any other way.',
+      },
+      {
+        id: 'forest',
+        emoji: '🌳',
+        label: 'The New Forest',
+        memory: 'Our favourite place — with our initials in it, so a little bit of it will always be ours.',
+      },
+      {
+        id: 'hill',
+        emoji: '⛰️',
+        label: 'The hill',
+        memory: 'Sitting up on the hill with you, talking about everything. Those deep talks mean more to me than you know.',
+      },
+      {
+        id: 'chips',
+        emoji: '🍟',
+        label: 'Cheesy chips',
+        memory: 'No hill trip is complete without them. Non-negotiable.',
+      },
+      {
+        id: 'song',
+        emoji: '🎵',
+        label: 'Our song',
+        memory: '“I Love You” — Fontaines D.C. It’s on the last page, if you want to press play.',
+      },
     ],
     finalMessage: 'You found them all. Every one of those little things is something I hold onto.',
   },
@@ -86,16 +124,16 @@ export const content = {
   // tested — if you move them, re-check that each one is easy to tap on a phone.
   hiddenHearts: {
     title: 'A little something hidden',
-    intro: 'Five hearts are hiding in this garden. Can you find them all?',
+    intro: 'Five hearts are hiding in this garden. Each one has something I love about you.',
     hearts: [
-      { id: 'flower', x: 18, y: 76, note: 'You make ordinary days feel like a holiday.' },
-      { id: 'cloud', x: 74, y: 17, note: 'I still get butterflies when you text me.' },
-      { id: 'tree', x: 87, y: 50, note: 'Your laugh is my favourite sound.' },
-      { id: 'sun', x: 13, y: 16, note: 'You are so much braver than you think.' },
-      { id: 'bench', x: 52, y: 64, note: 'I’d pick you. Every time, in every version of the story.' },
+      { id: 'flower', x: 18, y: 76, note: 'You’re so goofy, and it’s one of my favourite things about you. Never stop being silly with me.' },
+      { id: 'cloud', x: 74, y: 17, note: 'You are beautiful — and I don’t tell you that nearly enough.' },
+      { id: 'tree', x: 87, y: 50, note: 'You’re so much smarter than you give yourself credit for.' },
+      { id: 'sun', x: 13, y: 16, note: 'The way you are with animals says everything about how kind your heart is.' },
+      { id: 'bench', x: 52, y: 64, note: 'You’re the most thoughtful person I know. I notice the little things you do.' },
     ],
     rewardPhoto: 'photos/hearts-reward.svg',
-    rewardCaption: 'You found every heart. Here’s your prize: proof that we are ridiculous.',
+    rewardCaption: 'You found every heart. Here’s your prize.',
   },
 
   // ── Scene 6 · Relationship quiz (four questions × three answers) ──────────
@@ -106,35 +144,39 @@ export const content = {
     intro: 'Four tiny questions. No timer, no losing. Just us.',
     questions: [
       {
-        q: 'Where did we go on our very first date?',
+        q: 'Where did we first meet?',
         options: [
-          { text: 'The cosy café', correct: true, reaction: 'Correct! You remember everything ☕' },
-          { text: 'The cinema', reaction: 'Close, but that was date number two. I’ll allow it.' },
-          { text: 'The moon', reaction: 'Not yet. Give me a few years and a bigger budget.' },
+          { text: 'A candlelit restaurant in Paris', reaction: 'I wish. Swap the candles for trolleys and you’re close.' },
+          { text: 'A Tesco car park in Fratton', correct: true, reaction: 'Correct! The most romantic car park in Portsmouth 🛒' },
+          { text: 'Playzone adult night', reaction: 'Close! That came a little bit later.' },
         ],
       },
       {
-        q: 'Who is the better cook?',
+        q: 'What did you say when you first saw me?',
         options: [
-          { text: 'You', reaction: 'Bold. Wrong-ish. But bold.' },
-          { text: 'Me', correct: true, reaction: 'Obviously. I’m just glad you finally admit it.' },
-          { text: 'The takeaway place', reaction: 'Honestly? The most correct answer here.' },
+          { text: '“Excuse me, is this your trolley?”', reaction: 'Honestly, that would have been a decent opener too.' },
+          { text: 'Nothing — I was too stunned', reaction: 'I’d love to think so, but no. You definitely said something.' },
+          {
+            text: '“I wish I could find a man like that”',
+            correct: true,
+            reaction: 'And I said “I am a man like that.” Smoothest line of my life 😅',
+          },
         ],
       },
       {
-        q: 'What did I say the moment I knew I loved you?',
+        q: 'Where did we leave our initials in concrete?',
         options: [
-          { text: 'Something smooth and romantic', reaction: 'I wish. It was not smooth.' },
-          { text: 'Something completely ridiculous', correct: true, reaction: 'Yes. And you still stayed. Incredible.' },
-          { text: 'Nothing — I just stared', reaction: 'There was definitely staring. But also words, eventually.' },
+          { text: 'The New Forest', correct: true, reaction: 'Yes — our favourite place, with a little bit of us in it forever 🌳' },
+          { text: 'Fratton Tesco car park', reaction: 'Romantic, but security would have had questions.' },
+          { text: 'Southsea seafront', reaction: 'Lovely idea, wrong place. Ours is somewhere much greener.' },
         ],
       },
       {
-        q: 'What’s my favourite thing about you?',
+        q: 'Whose bike is better?',
         options: [
-          { text: 'Your laugh', reaction: 'Top three, easily.' },
-          { text: 'Your kindness', reaction: 'Yes. Always, yes.' },
-          { text: 'Trick question — it’s everything', correct: true, reaction: 'You know me so well 💗' },
+          { text: 'Mine, obviously', reaction: 'We’ll have to agree to disagree. (You’re wrong.)' },
+          { text: 'Yours', reaction: 'Finally! I’m screenshotting this.' },
+          { text: 'Let’s not start this again', correct: true, reaction: 'The wisest answer. Truce… for today.' },
         ],
       },
     ],
@@ -147,21 +189,21 @@ export const content = {
     title: 'All my favourite memories',
     intro: 'Tap any photo to see it bigger. Swipe to wander through them all.',
     photos: [
-      { src: 'photos/memory-01.svg', caption: 'Sunday mornings', date: 'Spring' },
-      { src: 'photos/memory-02.svg', caption: 'That view', date: 'Summer' },
-      { src: 'photos/memory-03.svg', caption: 'You, mid-laugh', date: '' },
-      { src: 'photos/memory-04.svg', caption: 'Road trip snacks', date: 'August' },
-      { src: 'photos/memory-05.svg', caption: 'Our spot', date: '' },
-      { src: 'photos/memory-06.svg', caption: 'The best day', date: 'October' },
-      { src: 'photos/memory-07.svg', caption: 'Cosy nights in', date: 'Winter' },
-      { src: 'photos/memory-08.svg', caption: 'Dancing badly', date: '' },
-      { src: 'photos/memory-09.svg', caption: 'Little adventures', date: '' },
-      { src: 'photos/memory-10.svg', caption: 'Just because', date: '' },
-      { src: 'photos/memory-11.svg', caption: 'You, being lovely', date: '' },
-      { src: 'photos/memory-12.svg', caption: 'Us, always', date: '' },
+      { src: 'photos/memory-01.svg', caption: 'you & me', date: '' },
+      { src: 'photos/memory-02.svg', caption: 'the New Forest', date: '' },
+      { src: 'photos/memory-03.svg', caption: 'you, being goofy', date: '' },
+      { src: 'photos/memory-04.svg', caption: 'up on the hill', date: '' },
+      { src: 'photos/memory-05.svg', caption: 'our spot', date: '' },
+      { src: 'photos/memory-06.svg', caption: 'a good day', date: '' },
+      { src: 'photos/memory-07.svg', caption: 'you, being beautiful', date: '' },
+      { src: 'photos/memory-08.svg', caption: 'little adventures', date: '' },
+      { src: 'photos/memory-09.svg', caption: 'just because', date: '' },
+      { src: 'photos/memory-10.svg', caption: 'more of these', date: '' },
+      { src: 'photos/memory-11.svg', caption: 'my favourite person', date: '' },
+      { src: 'photos/memory-12.svg', caption: 'us, always', date: '' },
     ],
     // Small handwritten notes scattered between the photos.
-    notes: ['more of these, please', 'my favourite person', 'remember this?'],
+    notes: ['more of these, please', 'cheesy chips soon?', 'my favourite person'],
   },
 
   // ── Scene 8 · The finale ──────────────────────────────────────────────────
@@ -172,11 +214,16 @@ export const content = {
     envelopeLabel: 'one last envelope',
     greeting: 'Dear Erin,',
     letter: [
-      'Happy birthday. I wanted to make you something that you could come back to — a little place that holds some of my favourite moments with you.',
-      'Thank you for every laugh, every adventure, every quiet evening and every silly thing we’ve done together. You make my life softer and brighter and so much more fun.',
-      'I hope this year is full of everything you deserve. I can’t wait to make a hundred more memories with you.',
+      'Happy birthday. I didn’t want to just hand you a card this year. I wanted to make you something that’s actually ours — full of our photos and our memories, made specifically for you. Because it is.',
+      'I love you. I care about you so much, and you’re the person I want to share my life and all my experiences with.',
+      'I want you to know how I see you. You’re goofy in the best way, you’re beautiful, you’re smart, you’re so kind to animals, and you’re one of the most thoughtful people I know. Those little things are what make you, you — and I notice them, even when I don’t say it.',
+      'I also know things haven’t always been how they should be. There have been times I haven’t given you the attention, effort or care you deserve, and I’m not going to pretend otherwise or make excuses for it. You should never have to ask for the basics, or feel like you’re fighting for my attention. I want my actions to show you that you matter, not just my words.',
+      'I’m not going to promise that everything changes overnight. What I can promise is that I’ll keep putting the effort in — not just today, but on all the ordinary days after it.',
+      'From a Tesco car park in Fratton, to our initials in the New Forest, to cheesy chips and deep talks up on the hill — I want so many more of those. More days out, more laughing at stupid things, more little adventures, and more photos to add to this page.',
+      'I hope this year is good to you. I hope you feel supported, have lots to look forward to, and get everything you want — and that by this time next year, you’re happier than ever. And I hope you always know there’s someone in your corner who wants to see you do well.',
+      'I love you, and I’m so glad you’re in my life. Have the birthday you deserve.',
     ],
-    signoff: 'All my love, always,',
+    signoff: 'All my love,',
     closing: 'Happy birthday, my love',
     revisitLabel: 'Revisit our memories',
   },
