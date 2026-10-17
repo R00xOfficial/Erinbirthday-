@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E8DFF8"/><stop offset=".6" stop-color="#FDE6EC"/><stop offset="1" stop-color="#FFF1DE"/>
+    </linearGradient>
+    <pattern id="thatch" width="14" height="10" patternUnits="userSpaceOnUse">
+      <rect width="14" height="10" fill="#C9A15A"/>
+      <path d="M0 10 L7 0 M7 10 L14 0" stroke="#A9813F" stroke-width="2"/>
+    </pattern>
+    <pattern id="tiles" width="20" height="12" patternUnits="userSpaceOnUse">
+      <rect width="20" height="12" fill="#A65A44"/>
+      <path d="M0 11.5 H20 M10 0 V6" stroke="#8A4535" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1000" fill="url(#sky)"/>
+
+  <!-- title -->
+  <text x="400" y="110" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#7A6169">Greetings from</text>
+  <text x="400" y="185" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="bold" font-size="66" fill="#C94F78">Weald &amp; Downland</text>
+  <text x="400" y="235" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="8" fill="#49343D">LIVING MUSEUM</text>
+
+  <!-- stamp -->
+  <g transform="translate(640 270) rotate(6)">
+    <rect x="-48" y="-58" width="96" height="116" fill="#fff" stroke="#F4A7BB" stroke-width="4" stroke-dasharray="6 5"/>
+    <rect x="-38" y="-48" width="76" height="96" fill="#FDEEF2"/>
+    <path d="M0 22 C-34 -6 -18 -38 0 -18 C18 -38 34 -6 0 22Z" fill="#2B2226"/>
+  </g>
+
+  <!-- sun & clouds -->
+  <circle cx="150" cy="330" r="48" fill="#FFE7A3"/>
+  <circle cx="150" cy="330" r="70" fill="#FFE7A3" opacity=".3"/>
+  <g fill="#fff">
+    <ellipse cx="420" cy="320" rx="70" ry="22"/><ellipse cx="450" cy="304" rx="40" ry="24"/>
+    <ellipse cx="290" cy="380" rx="44" ry="14" opacity=".85"/>
+  </g>
+
+  <!-- the downs -->
+  <path d="M0 520 Q180 410 380 480 T800 450 V1000 H0Z" fill="#CBE8D9"/>
+  <path d="M0 600 Q220 520 460 590 T800 560 V1000 H0Z" fill="#A6D8C2"/>
+  <path d="M0 760 Q260 700 520 760 T800 740 V1000 H0Z" fill="#8CCBAF"/>
+
+  <!-- trees -->
+  <g>
+    <rect x="66" y="560" width="14" height="70" rx="4" fill="#9C7461"/>
+    <circle cx="73" cy="540" r="44" fill="#7FC2A5"/><circle cx="48" cy="562" r="28" fill="#8CCBAF"/><circle cx="100" cy="560" r="28" fill="#8CCBAF"/>
+    <rect x="730" y="540" width="12" height="60" rx="4" fill="#9C7461"/>
+    <circle cx="736" cy="522" r="36" fill="#7FC2A5"/>
+  </g>
+
+  <!-- timber-framed cottage with thatched roof -->
+  <g transform="translate(130 520)">
+    <rect x="0" y="110" width="330" height="190" fill="#FBF3E4"/>
+    <g stroke="#3A2A24" stroke-width="9" fill="none">
+      <rect x="0" y="110" width="330" height="190"/>
+      <path d="M0 200 H330"/>
+      <path d="M82 110 V300 M165 110 V300 M248 110 V300"/>
+      <path d="M0 110 L82 200 M165 110 L82 200 M165 110 L248 200 M330 110 L248 200"/>
+    </g>
+    <path d="M-28 118 L165 -20 L358 118 Z" fill="url(#thatch)"/>
+    <path d="M-28 118 L165 -20 L358 118" stroke="#8C6A33" stroke-width="6" fill="none"/>
+    <rect x="200" y="-6" width="30" height="60" fill="#B98670"/>
+    <g fill="#F7E7B4" stroke="#3A2A24" stroke-width="5">
+      <rect x="22" y="222" width="42" height="40"/>
+      <rect x="266" y="222" width="42" height="40"/>
+      <rect x="100" y="132" width="46" height="46"/>
+      <rect x="184" y="132" width="46" height="46"/>
+    </g>
+    <path d="M124 300 V240 a18 18 0 0 1 36 0 V300Z" fill="#7A4B3A" stroke="#3A2A24" stroke-width="5"/>
+  </g>
+
+  <!-- tiled barn -->
+  <g transform="translate(500 600)">
+    <rect x="0" y="70" width="210" height="150" fill="#E9D4B8"/>
+    <g stroke="#3A2A24" stroke-width="7" fill="none">
+      <rect x="0" y="70" width="210" height="150"/>
+      <path d="M70 70 V220 M140 70 V220 M0 145 H210"/>
+    </g>
+    <path d="M-20 76 L105 -12 L230 76 Z" fill="url(#tiles)"/>
+    <rect x="80" y="160" width="50" height="60" fill="#7A4B3A" stroke="#3A2A24" stroke-width="5"/>
+  </g>
+
+  <!-- path -->
+  <path d="M300 1000 Q330 900 290 830 L320 820 Q390 900 380 1000Z" fill="#E9D4B8"/>
+
+  <!-- a little horse, naturally -->
+  <g transform="translate(560 860) scale(1.6)">
+    <path d="M14 34 q-14 6 -10 26" stroke="#4A3328" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <rect x="18" y="44" width="6" height="30" rx="2" fill="#B07F5A"/><rect x="28" y="44" width="6" height="30" rx="2" fill="#B07F5A"/>
+    <rect x="52" y="44" width="6" height="30" rx="2" fill="#B07F5A"/><rect x="62" y="44" width="6" height="30" rx="2" fill="#B07F5A"/>
+    <ellipse cx="40" cy="40" rx="30" ry="15" fill="#C99A74"/>
+    <path d="M58 36 L66 6 L80 10 L72 44 Z" fill="#C99A74"/>
+    <path d="M67 3 Q60 18 57 36" stroke="#4A3328" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path d="M72 0 L74 -10 L79 -1 Z" fill="#B07F5A"/>
+    <ellipse cx="82" cy="10" rx="16" ry="10" transform="rotate(25 82 10)" fill="#C99A74"/>
+    <ellipse cx="92" cy="17" rx="8" ry="7" fill="#E2BFA0"/>
+    <circle cx="80" cy="5" r="2.2" fill="#2B2226"/>
+  </g>
+
+  <!-- flowers -->
+  <g>
+    <circle cx="90" cy="880" r="9" fill="#F4A7BB"/><circle cx="130" cy="920" r="8" fill="#fff"/>
+    <circle cx="200" cy="870" r="9" fill="#C9B8EE"/><circle cx="470" cy="930" r="9" fill="#F4A7BB"/>
+    <circle cx="740" cy="900" r="8" fill="#fff"/>
+  </g>
+</svg>

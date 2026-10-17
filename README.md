@@ -25,15 +25,18 @@ Built with React + Vite, plain CSS, no backend.
 ```bash
 npm install
 npm run dev        # http://localhost:5173 (add --host to open it on your phone)
-npm run build      # static files in dist/
+npm run build      # static files in docs/
 npm run preview    # serve the production build
 ```
 
 ## Deploy
 
-- **GitHub Pages:** in the repo settings → Pages, set the source to
-  "GitHub Actions". Pushing to `main` runs `.github/workflows/deploy.yml`.
-- **Cloudflare Pages:** build command `npm run build`, output directory `dist`.
+- **GitHub Pages (current setup):** the built site is committed in `docs/`.
+  In the repo settings → Pages choose "Deploy from a branch", pick this
+  branch and the `/docs` folder. Run `npm run build` and commit `docs/`
+  after every change. (Alternatively set the source to "GitHub Actions";
+  pushing to `main` runs `.github/workflows/deploy.yml`.)
+- **Cloudflare Pages:** build command `npm run build`, output directory `docs`.
 
 The build uses relative paths, so it works from a sub-path or a domain root.
 
