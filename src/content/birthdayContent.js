@@ -86,10 +86,10 @@ export const content = {
         memory: 'The most romantic car park in Portsmouth. Fratton Tesco, forever iconic.',
       },
       {
-        id: 'playzone',
-        emoji: '🤸',
-        label: 'Playzone adult night',
-        memory: 'Proof that we are both just big kids. I wouldn’t have it any other way.',
+        id: 'skelly',
+        emoji: '🐈',
+        label: 'Skelly',
+        memory: 'Our baby. Named after the Minecraft skeleton, obviously. Occasional makeup model.',
       },
       {
         id: 'forest',
@@ -141,7 +141,7 @@ export const content = {
   // wrong answers should be affectionate, never a penalty.
   quiz: {
     title: 'How well do you remember us?',
-    intro: 'Four tiny questions. No timer, no losing. Just us.',
+    intro: 'Five tiny questions. No timer, no losing. Just us.',
     questions: [
       {
         q: 'Where did we first meet?',
@@ -172,6 +172,14 @@ export const content = {
         ],
       },
       {
+        q: 'What is Skelly named after?',
+        options: [
+          { text: 'Her impressive bone structure', reaction: 'She does have great cheekbones. Especially with blusher on.' },
+          { text: 'The skeleton from Minecraft', correct: true, reaction: 'Correct! Our little mob 💀🐈' },
+          { text: 'Skeletor from He-Man', reaction: 'Close in spirit, wrong franchise.' },
+        ],
+      },
+      {
         q: 'Whose motorbike is better? 🏍️',
         options: [
           { text: 'Mine, obviously', reaction: 'We’ll have to agree to disagree. (You’re wrong.)' },
@@ -192,7 +200,7 @@ export const content = {
       { src: 'photos/erin-lightning-mcqueen.jpg', alt: 'Erin giving a thumbs up next to Lightning McQueen', caption: 'ka-chow! ⚡', date: '' },
       { src: 'photos/erin-duck-sunset.jpg', alt: 'Erin holding a duck by the pond at sunset', caption: 'another day, another bird best friend 🦆', date: '' },
       { src: 'photos/erin-pigeon.jpg', alt: 'Erin holding a pigeon outside the shop', caption: 'you and your new pigeon friend', date: '' },
-      { src: 'photos/erin-cat.jpg', alt: 'Erin with a white cat wearing pink makeup', caption: 'glam cat, by Erin 💄', date: '' },
+      { src: 'photos/erin-cat.jpg', alt: 'Erin with Skelly the cat, wearing pink makeup', caption: 'Skelly, our baby — makeup by Erin 💄', date: '' },
       { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: 'Tenerife' },
     ],
     // Small handwritten notes scattered between the photos.
