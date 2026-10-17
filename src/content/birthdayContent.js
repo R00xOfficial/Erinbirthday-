@@ -27,7 +27,7 @@ export const content = {
     kicker: 'a little something for',
     envelopeLabel: 'tap to open',
     message: [
-      'Happy birthday, Erin.',
+      'Happy birthday, Erin 🖤',
       'I made you a little corner of the internet, full of us — our places, our memories and our photos. Take your time, play the games, and read the little notes along the way.',
     ],
     scrollPrompt: 'scroll down, gently',
@@ -69,7 +69,7 @@ export const content = {
     intro: 'Slide the pieces until we’re whole again. Tap a tile next to the empty space to move it.',
     src: 'photos/puzzle.jpg',
     alt: 'The two of us on holiday in Tenerife',
-    solvedCaption: 'There we are, in Tenerife — right where we belong.',
+    solvedCaption: 'There we are, in Tenerife — right where we belong 🖤',
     shuffleMoves: 80,
   },
 
@@ -225,7 +225,7 @@ export const content = {
       'I love you, and I’m so glad you’re in my life. Have the birthday you deserve.',
     ],
     signoff: 'All my love,',
-    closing: 'Happy birthday, my love',
+    closing: 'Happy birthday, my love 🖤',
     revisitLabel: 'Revisit our memories',
   },
 };

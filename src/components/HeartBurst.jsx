@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Heart } from './Icons.jsx';
 
-const COLORS = ['#F4A7BB', '#C94F78', '#E8A0C0', '#fff'];
+const COLORS = ['#2B2226', '#F4A7BB', '#2B2226', '#C94F78', '#fff'];
 
 /**
  * A short burst of hearts floating up. Re-triggers whenever `trigger` changes

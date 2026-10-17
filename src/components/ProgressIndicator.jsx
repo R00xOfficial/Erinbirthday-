@@ -6,7 +6,7 @@ export default function ProgressIndicator({ total, done, label }) {
     <div className="progress" role="status" aria-live="polite">
       <span className="progress__hearts" aria-hidden="true">
         {Array.from({ length: total }, (_, i) => (
-          <Heart key={i} size={18} className={i < done ? 'is-on' : ''} color={i < done ? '#C94F78' : '#F0D5DD'} />
+          <Heart key={i} size={18} className={i < done ? 'is-on' : ''} color={i < done ? '#2B2226' : '#F0D5DD'} />
         ))}
       </span>
       <span className="progress__label">{label}</span>

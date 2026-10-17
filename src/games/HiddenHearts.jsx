@@ -62,8 +62,33 @@ function Garden() {
           <circle cx={x} cy={y} r="4" fill="#FFF1C9" />
         </g>
       ))}
+      {/* a very silly horse, for Erin */}
+      <g transform="translate(92 128)">
+        <path d="M14 34 q-14 6 -10 26" stroke="#4A3328" strokeWidth="5" strokeLinecap="round" fill="none" />
+        {[18, 28, 52, 62].map((x) => (
+          <g key={x}>
+            <rect x={x} y="44" width="6" height="30" rx="2" fill="#B07F5A" />
+            <rect x={x - 0.5} y="70" width="7" height="6" rx="1.5" fill="#3A2A24" />
+          </g>
+        ))}
+        <ellipse cx="40" cy="40" rx="30" ry="15" fill="#C99A74" />
+        <path d="M30 34 c-3 -4 -9 -2 -6 3 l6 6 l6 -6 c3 -5 -3 -7 -6 -3z" fill="#2B2226" />
+        <path d="M58 36 L66 6 L80 10 L72 44 Z" fill="#C99A74" />
+        <path d="M67 3 Q60 18 57 36" stroke="#4A3328" strokeWidth="6" strokeLinecap="round" fill="none" />
+        <path d="M72 0 L74 -10 L79 -1 Z" fill="#B07F5A" />
+        <ellipse cx="82" cy="10" rx="16" ry="10" transform="rotate(25 82 10)" fill="#C99A74" />
+        <ellipse cx="92" cy="17" rx="8" ry="7" fill="#E2BFA0" />
+        <circle cx="96" cy="14" r="1.2" fill="#3A2A24" />
+        <circle cx="79" cy="4" r="5" fill="#fff" stroke="#2B2226" strokeWidth="1.2" />
+        <circle cx="81" cy="6.5" r="2.2" fill="#2B2226" />
+        <circle cx="88" cy="5" r="4" fill="#fff" stroke="#2B2226" strokeWidth="1.2" />
+        <circle cx="86.5" cy="2.5" r="1.8" fill="#2B2226" />
+        <path d="M89 25 q4 8 8 1" fill="#F4A7BB" />
+        <rect x="85" y="19" width="13" height="6" rx="1.5" fill="#fff" stroke="#2B2226" strokeWidth="1" />
+        <path d="M89.3 19 v6 M93.6 19 v6" stroke="#2B2226" strokeWidth="0.8" />
+      </g>
       {/* tiny butterflies */}
-      <path d="M128 120 q-8 -10 -2 -12 q4 0 2 12 q8 -10 12 -6 q0 6 -12 6" fill="#C9B8EE" />
+      <path d="M150 92 q-8 -10 -2 -12 q4 0 2 12 q8 -10 12 -6 q0 6 -12 6" fill="#C9B8EE" />
       <path d="M248 98 q-6 -8 -1 -9 q3 0 1 9 q6 -8 9 -5 q0 5 -9 5" fill="#F4A7BB" />
     </svg>
   );
@@ -75,6 +100,7 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
   const [flying, setFlying] = useState([]);
   const [hintId, setHintId] = useState(null);
   const [burst, setBurst] = useState(0);
+  const [neigh, setNeigh] = useState(0);
   const sceneRef = useRef(null);
   const counterRef = useRef(null);
   const done = found.length === hearts.length;
@@ -134,6 +160,17 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
 
       <div className="garden" ref={sceneRef}>
         <Garden />
+        <button
+          type="button"
+          className="garden__horse"
+          onClick={() => setNeigh(Date.now())}
+          aria-label="A very silly horse"
+        />
+        {neigh > 0 && (
+          <span key={neigh} className="garden__neigh" role="status">
+            neigh! 🐴
+          </span>
+        )}
         {hearts.map((h) => {
           const isFound = found.includes(h.id);
           return (
@@ -146,7 +183,7 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
               disabled={isFound}
               aria-label={isFound ? 'Heart found' : 'Hidden heart'}
             >
-              <Heart size={isFound ? 20 : 13} color={isFound ? '#C94F78' : '#EBA3B8'} />
+              <Heart size={isFound ? 20 : 13} color={isFound ? '#2B2226' : '#EBA3B8'} />
             </button>
           );
         })}
@@ -157,7 +194,7 @@ export default function HiddenHearts({ hearts, foundHearts = [], onFind, onResta
             style={{ left: `${f.x}%`, top: `${f.y}%`, '--dx': `${f.dx}px`, '--dy': `${f.dy}px` }}
             aria-hidden="true"
           >
-            <Heart size={24} color="#C94F78" />
+            <Heart size={24} color="#2B2226" />
           </span>
         ))}
       </div>

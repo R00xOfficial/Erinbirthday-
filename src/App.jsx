@@ -27,7 +27,7 @@ function Doodles() {
     <div className="doodles" aria-hidden="true">
       <Flower size={18} color="#F4A7BB" />
       <Sparkle size={12} color="#E3C77A" />
-      <Heart size={14} color="#C94F78" />
+      <Heart size={14} color="#2B2226" />
       <Sparkle size={12} color="#E3C77A" />
       <Flower size={18} color="#C9B8EE" />
     </div>
@@ -280,7 +280,7 @@ export default function App() {
           {progress.letterOpened && (
             <div className="finale__end">
               <p className="finale__closing">{finale.closing}</p>
-              <Heart size={36} color="#C94F78" className="finale__heart" />
+              <Heart size={36} color="#2B2226" className="finale__heart" />
               {song?.spotifyId && (
                 <div className="song">
                   <p className="handwritten song__label">

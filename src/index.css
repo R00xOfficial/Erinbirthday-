@@ -13,6 +13,7 @@
   --lavender-deep: #c9b8ee;
   --gold: #e3c77a;
   --text: #49343d;
+  --ink: #2b2226; /* our black hearts 🖤 */
   --text-soft: #7a6169;
   --card: #ffffff;
   --card-border: #f6d3dd;
@@ -493,8 +494,8 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--rose);
-  box-shadow: 0 3px 8px rgba(168, 60, 98, 0.4), inset 0 -3px 0 rgba(0, 0, 0, 0.12);
+  background: var(--ink);
+  box-shadow: 0 3px 8px rgba(43, 34, 38, 0.45), inset 0 -3px 0 rgba(255, 255, 255, 0.08);
   z-index: 3;
   transition:
     opacity 250ms,
@@ -1134,6 +1135,47 @@ h3 {
   }
 }
 
+.garden__horse {
+  position: absolute;
+  left: 23%;
+  top: 38%;
+  width: 23%;
+  height: 24%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.garden__neigh {
+  position: absolute;
+  left: 36%;
+  top: 25%;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  pointer-events: none;
+  animation: neigh 1.8s var(--ease-out) forwards;
+}
+
+@keyframes neigh {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.8);
+  }
+  15%,
+  75% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
 .garden__fly {
   position: absolute;
   margin: -12px 0 0 -12px;
@@ -1591,5 +1633,8 @@ h3 {
   .burst,
   .garden__fly {
     display: none;
+  }
+  .garden__neigh {
+    animation-name: none !important;
   }
 }
