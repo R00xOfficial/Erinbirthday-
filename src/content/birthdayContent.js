@@ -68,8 +68,8 @@ export const content = {
     title: 'Put us back together',
     intro: 'Slide the pieces until we’re whole again. Tap a tile next to the empty space to move it.',
     src: 'photos/puzzle.jpg',
-    alt: 'The two of us on holiday',
-    solvedCaption: 'There we are — right where we belong.',
+    alt: 'The two of us on holiday in Tenerife',
+    solvedCaption: 'There we are, in Tenerife — right where we belong.',
     shuffleMoves: 80,
   },
 
@@ -193,7 +193,7 @@ export const content = {
       { src: 'photos/erin-duck-sunset.jpg', alt: 'Erin holding a duck by the pond at sunset', caption: 'another day, another bird best friend 🦆', date: '' },
       { src: 'photos/erin-pigeon.jpg', alt: 'Erin holding a pigeon outside the shop', caption: 'you and your new pigeon friend', date: '' },
       { src: 'photos/erin-cat.jpg', alt: 'Erin with a white cat wearing pink makeup', caption: 'glam cat, by Erin 💄', date: '' },
-      { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: '' },
+      { src: 'photos/finale.jpg', alt: 'Erin with a cockatiel on her hand', caption: 'you, the bird whisperer', date: 'Tenerife' },
     ],
     // Small handwritten notes scattered between the photos.
     notes: ['more of these, please', 'cheesy chips soon?', 'my favourite person'],
@@ -212,7 +212,7 @@ export const content = {
       'I want you to know how I see you. You’re goofy in the best way, you’re beautiful, you’re smart, you’re so kind to animals, and you’re one of the most thoughtful people I know. Those little things are what make you, you — and I notice them, even when I don’t say it.',
       'I also know things haven’t always been how they should be. There have been times I haven’t given you the attention, effort or care you deserve, and I’m not going to pretend otherwise or make excuses for it. You should never have to ask for the basics, or feel like you’re fighting for my attention. I want my actions to show you that you matter, not just my words.',
       'I’m not going to promise that everything changes overnight. What I can promise is that I’ll keep putting the effort in — not just today, but on all the ordinary days after it.',
-      'From a Tesco car park in Fratton, to our initials in the New Forest, to cheesy chips and deep talks up on the hill — I want so many more of those. More days out, more laughing at stupid things, more little adventures, and more photos to add to this page.',
+      'From a Tesco car park in Fratton, to Tenerife, to our initials in the New Forest, to cheesy chips and deep talks up on the hill — I want so many more of those. More days out, more laughing at stupid things, more little adventures, and more photos to add to this page.',
       'I hope this year is good to you. I hope you feel supported, have lots to look forward to, and get everything you want — and that by this time next year, you’re happier than ever. And I hope you always know there’s someone in your corner who wants to see you do well.',
       'I love you, and I’m so glad you’re in my life. Have the birthday you deserve.',
     ],
