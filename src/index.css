@@ -362,6 +362,38 @@ h3 {
   color: var(--text);
 }
 
+.polaroid__img {
+  position: relative;
+}
+
+.polaroid__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  display: grid;
+  place-items: center;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: rgba(43, 34, 38, 0.78);
+  color: #fff;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.collage__cell--wide {
+  grid-column: 1 / -1;
+  width: 88%;
+  justify-self: center;
+  margin-top: 0 !important;
+}
+
+.collage__cell--wide .polaroid__img {
+  aspect-ratio: 16 / 10 !important;
+}
+
 .tape {
   position: absolute;
   top: -12px;
@@ -1454,12 +1486,15 @@ h3 {
   animation: pop-in 280ms var(--ease-out) both;
 }
 
-.lightbox__figure img {
+.lightbox__figure img,
+.lightbox__figure video {
   max-height: 64vh;
   max-height: 64svh;
   width: auto;
+  max-width: 100%;
   margin: 0 auto;
   object-fit: contain;
+  display: block;
 }
 
 .lightbox__figure figcaption {

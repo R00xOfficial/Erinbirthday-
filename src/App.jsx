@@ -216,15 +216,20 @@ export default function App() {
             {gallery.map((p, i) => {
               const note = scrapbook.notes[Math.floor(i / 4)];
               return (
-                <Reveal key={`${p.src}-${i}`} className="collage__cell" delay={(i % 4) * 60}>
+                <Reveal
+                  key={`${p.src}-${i}`}
+                  className={`collage__cell ${p.wide ? 'collage__cell--wide' : ''}`}
+                  delay={(i % 4) * 60}
+                >
                   <ScrapbookPhoto
                     src={p.src}
                     alt={p.alt || p.caption}
                     caption={p.caption}
                     tilt={SCRAP_TILTS[i % SCRAP_TILTS.length]}
                     tape={i % 3 !== 2}
+                    video={Boolean(p.video)}
                     onClick={() => openPhoto(i)}
-                    label={`Open photo: ${p.caption}`}
+                    label={`${p.video ? 'Play video' : 'Open photo'}: ${p.caption}`}
                   />
                   {i % 4 === 3 && note && (
                     <span className="sticky-note" aria-hidden="true">

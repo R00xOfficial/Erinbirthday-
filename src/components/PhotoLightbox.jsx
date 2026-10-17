@@ -68,7 +68,18 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
         ×
       </button>
       <figure className="lightbox__figure" key={index}>
-        <img src={asset(photo.src)} alt={photo.alt || photo.caption || ''} />
+        {photo.video ? (
+          <video
+            src={asset(photo.video)}
+            poster={asset(photo.src)}
+            controls
+            playsInline
+            preload="metadata"
+            aria-label={photo.alt || photo.caption || 'Video'}
+          />
+        ) : (
+          <img src={asset(photo.src)} alt={photo.alt || photo.caption || ''} />
+        )}
         <figcaption>
           {photo.caption && <span className="lightbox__caption">{photo.caption}</span>}
           {photo.date && <span className="lightbox__date">{photo.date}</span>}

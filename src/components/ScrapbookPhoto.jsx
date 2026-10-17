@@ -14,6 +14,7 @@ export default function ScrapbookPhoto({
   className = '',
   children,
   label,
+  video = false,
   ...rest
 }) {
   const Tag = onClick ? 'button' : 'figure';
@@ -29,6 +30,11 @@ export default function ScrapbookPhoto({
       {tape && <span className="tape" aria-hidden="true" />}
       <span className="polaroid__img">
         <img src={asset(src)} alt={onClick ? '' : alt} loading="lazy" decoding="async" />
+        {video && (
+          <span className="polaroid__play" aria-hidden="true">
+            ▶
+          </span>
+        )}
       </span>
       {caption && <span className="polaroid__caption">{caption}</span>}
       {children}
