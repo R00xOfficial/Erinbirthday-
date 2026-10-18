@@ -5,7 +5,9 @@ import { useSyncExternalStore } from 'react';
 import { asset } from './asset.js';
 
 const PREF_KEY = 'erin-birthday-sound';
-const MUSIC_VOLUME = 0.55;
+// The song file itself is mastered ~11 dB quieter (iPhones ignore element
+// volume), so it sits under the sound effects on every device.
+const MUSIC_VOLUME = 1;
 
 let ctx = null;
 let sfxBus = null;
@@ -49,8 +51,15 @@ function getCtx() {
   if (!AC) return null;
   ctx = new AC();
   sfxBus = ctx.createGain();
-  sfxBus.gain.value = 0.7;
-  sfxBus.connect(ctx.destination);
+  sfxBus.gain.value = 1.1;
+  // Gentle limiter so overlapping effects never crackle.
+  const limiter = ctx.createDynamicsCompressor();
+  limiter.threshold.value = -10;
+  limiter.knee.value = 6;
+  limiter.ratio.value = 8;
+  limiter.attack.value = 0.003;
+  limiter.release.value = 0.15;
+  sfxBus.connect(limiter).connect(ctx.destination);
   return ctx;
 }
 
