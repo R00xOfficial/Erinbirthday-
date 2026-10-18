@@ -122,7 +122,7 @@ export default function MemoryMatch({ pairs, finalMessage, matchedPairs = [], on
                 </span>
                 <span className="mcard__front" aria-hidden="true">
                   {pair.src ? (
-                    <img src={asset(pair.src)} alt="" loading="lazy" />
+                    <img src={asset(pair.src)} alt="" />
                   ) : (
                     <span className="mcard__emoji">{pair.emoji}</span>
                   )}

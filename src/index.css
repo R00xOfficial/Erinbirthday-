@@ -2646,7 +2646,7 @@ h3 {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Parallax depth layers + lazy-load placeholders
+   Parallax depth layers
    ───────────────────────────────────────────────────────────────────────────── */
 .plx {
   position: fixed;
@@ -2694,25 +2694,6 @@ h3 {
   will-change: transform;
 }
 
-.lazy-ph {
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-lg);
-  border: 2px dashed var(--card-border);
-  background:
-    linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.75) 50%, transparent 70%) 0 0 / 250% 100% no-repeat,
-    rgba(255, 255, 255, 0.45);
-  animation: shimmer 1.6s ease-in-out infinite;
-}
-
-.lazy-ph__heart {
-  animation: heartbeat 1.4s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  from { background-position: 120% 0, 0 0; }
-  to { background-position: -60% 0, 0 0; }
-}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Tablets (iPad) — use the extra room instead of a phone-sized column

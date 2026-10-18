@@ -30,7 +30,7 @@ export default function FlipPolaroid({ src, alt, caption, memory, tilt = 0 }) {
         <span className="flip__face flip__front polaroid" aria-hidden={flipped}>
           <span className="tape" aria-hidden="true" />
           <span className="polaroid__img">
-            <img src={asset(src)} alt={alt} loading="lazy" decoding="async" />
+            <img src={asset(src)} alt={alt} decoding="async" />
           </span>
           <span className="polaroid__caption">{caption}</span>
         </span>

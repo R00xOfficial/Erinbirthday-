@@ -1,5 +1,6 @@
-import { lazy, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { content } from './content/birthdayContent.js';
+import { asset } from './asset.js';
 import { useProgress } from './hooks/useProgress.js';
 import AmbientBackground from './components/AmbientBackground.jsx';
 import SceneSection from './components/SceneSection.jsx';
@@ -9,7 +10,7 @@ import PhotoLightbox from './components/PhotoLightbox.jsx';
 import EnvelopeReveal from './components/EnvelopeReveal.jsx';
 import HeartBurst from './components/HeartBurst.jsx';
 import Reveal from './components/Reveal.jsx';
-const Coupons = lazy(() => import('./components/Coupons.jsx'));
+import Coupons from './components/Coupons.jsx';
 import ScrollThread from './components/ScrollThread.jsx';
 import SoundToggle from './components/SoundToggle.jsx';
 import SongCard from './components/SongCard.jsx';
@@ -17,14 +18,12 @@ import { installAudioUnlock, sfx, startMusic, startMusicOnFirstTap } from './sou
 import { installTapSparkles, rain } from './fx.js';
 import { Heart, Flower, Sparkle } from './components/Icons.jsx';
 import Px from './components/Px.jsx';
-import LazyMount from './components/LazyMount.jsx';
 import ParallaxBackdrop from './components/ParallaxBackdrop.jsx';
 
-// Each game is its own download, fetched only when she scrolls near it.
-const SlidingPuzzle = lazy(() => import('./games/SlidingPuzzle.jsx'));
-const MemoryMatch = lazy(() => import('./games/MemoryMatch.jsx'));
-const HiddenHearts = lazy(() => import('./games/HiddenHearts.jsx'));
-const RelationshipQuiz = lazy(() => import('./games/RelationshipQuiz.jsx'));
+import SlidingPuzzle from './games/SlidingPuzzle.jsx';
+import MemoryMatch from './games/MemoryMatch.jsx';
+import HiddenHearts from './games/HiddenHearts.jsx';
+import RelationshipQuiz from './games/RelationshipQuiz.jsx';
 
 const { opening, story, puzzle, match, hiddenHearts, quiz, scrapbook, coupons, finale, song } = content;
 
@@ -57,6 +56,23 @@ export default function App() {
   const [runId, setRunId] = useState(0);
 
   useEffect(() => installTapSparkles(), []);
+  // Download every photo up front (including prizes that only appear later),
+  // so nothing has to load while she's scrolling or playing.
+  useEffect(() => {
+    const srcs = [
+      ...story.photos.map((p) => p.src),
+      puzzle.src,
+      ...match.pairs.filter((p) => p.src).map((p) => p.src),
+      hiddenHearts.rewardPhoto,
+      ...scrapbook.photos.map((p) => p.src),
+      finale.photo,
+    ];
+    srcs.forEach((src) => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = asset(src);
+    });
+  }, []);
   useEffect(() => installAudioUnlock(), []);
   useEffect(() => {
     if (progress.envelopeOpened) return startMusicOnFirstTap();
@@ -178,7 +194,6 @@ export default function App() {
 
         {/* ── Scene 3 · Sliding puzzle ── */}
         <SceneSection id="puzzle" eyebrow="game one" title={puzzle.title} intro={puzzle.intro}>
-          <LazyMount minHeight={560}>
           <Reveal>
             <SlidingPuzzle
               src={puzzle.src}
@@ -189,14 +204,12 @@ export default function App() {
               onComplete={onPuzzleComplete}
             />
           </Reveal>
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
 
         {/* ── Scene 4 · Memory matching ── */}
         <SceneSection id="match" eyebrow="game two" title={match.title} intro={match.intro}>
-          <LazyMount minHeight={620}>
           <Reveal>
             <MemoryMatch
               pairs={match.pairs}
@@ -206,14 +219,12 @@ export default function App() {
               onRestart={() => update({ matchedPairs: [] })}
             />
           </Reveal>
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
 
         {/* ── Scene 5 · Hidden hearts ── */}
         <SceneSection id="hearts" eyebrow="game three" title={hiddenHearts.title} intro={hiddenHearts.intro}>
-          <LazyMount minHeight={560}>
           <Reveal>
             <HiddenHearts
               hearts={hiddenHearts.hearts}
@@ -224,14 +235,12 @@ export default function App() {
               rewardCaption={hiddenHearts.rewardCaption}
             />
           </Reveal>
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
 
         {/* ── Scene 6 · Relationship quiz ── */}
         <SceneSection id="quiz" eyebrow="game four" title={quiz.title} intro={quiz.intro}>
-          <LazyMount minHeight={560}>
           <Reveal>
             <RelationshipQuiz
               questions={quiz.questions}
@@ -242,14 +251,12 @@ export default function App() {
               onRestart={() => update({ quizAnswers: [], quizComplete: false })}
             />
           </Reveal>
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
 
         {/* ── Scene 7 · The scrapbook ── */}
         <SceneSection id="scrapbook" className="scene--scrapbook" eyebrow="the scrapbook" title={scrapbook.title} intro={scrapbook.intro}>
-          <LazyMount minHeight={1800}>
           <div className="collage">
             {gallery.map((p, i) => {
               const note = scrapbook.notes[Math.floor(i / 4)];
@@ -293,14 +300,12 @@ export default function App() {
               </ul>
             </Reveal>
           )}
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
 
         {/* ── Coupons ── */}
         <SceneSection id="coupons" eyebrow="a little extra" title={coupons.title} intro={coupons.intro}>
-          <LazyMount minHeight={1300}>
           <Coupons
             items={coupons.items}
             redeemed={progress.redeemedCoupons}
@@ -321,7 +326,6 @@ export default function App() {
               })
             }
           />
-          </LazyMount>
         </SceneSection>
 
         <Doodles />
