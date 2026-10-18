@@ -5,7 +5,7 @@ import { useSyncExternalStore } from 'react';
 import { asset } from './asset.js';
 
 const PREF_KEY = 'erin-birthday-sound';
-// The song file itself is mastered ~11 dB quieter (iPhones ignore element
+// The song file itself is mastered ~8 dB quieter (iPhones ignore element
 // volume), so it sits under the sound effects on every device.
 const MUSIC_VOLUME = 1;
 

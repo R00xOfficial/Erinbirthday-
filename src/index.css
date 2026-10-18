@@ -1680,6 +1680,9 @@ h3 {
 }
 
 .lightbox__close {
+  display: grid;
+  place-items: center;
+  padding: 0;
   position: absolute;
   top: max(12px, env(safe-area-inset-top));
   right: 12px;
@@ -1702,6 +1705,9 @@ h3 {
 }
 
 .lightbox__nav button {
+  display: grid;
+  place-items: center;
+  padding: 0;
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -2526,8 +2532,8 @@ h3 {
 }
 
 .sound-toggle__icon {
-  font-size: 1.4rem;
-  line-height: 1;
+  display: grid;
+  place-items: center;
 }
 
 .eq {
@@ -2627,12 +2633,9 @@ h3 {
   border-radius: 50%;
   background: var(--ink);
   color: #fff;
-  font-size: 1rem;
-  padding-left: 3px;
-}
-
-.song-card.is-playing .song-card__btn {
-  padding-left: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
 }
 
 .song-card__link {
@@ -2709,6 +2712,116 @@ h3 {
 @keyframes shimmer {
   from { background-position: 120% 0, 0 0; }
   to { background-position: -60% 0, 0 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Tablets (iPad) — use the extra room instead of a phone-sized column
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 700px) {
+  body {
+    font-size: 18.5px;
+  }
+  .page {
+    max-width: 860px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .scene {
+    padding: 80px 0 56px;
+  }
+  .scene__title {
+    font-size: clamp(3rem, 6vw, 4rem);
+  }
+  .squiggle {
+    width: 200px;
+  }
+  .hero__name {
+    font-size: clamp(6.5rem, 15vw, 9.5rem);
+  }
+  .envelope {
+    width: min(420px, 58vw);
+  }
+  .envelope-reveal--finale .envelope {
+    width: min(380px, 52vw);
+  }
+  .letter {
+    max-width: 640px;
+    padding: 40px 44px 34px;
+  }
+  .letter p {
+    font-size: 1.7rem;
+  }
+  .letter p.letter__lead,
+  .letter p.letter__greeting {
+    font-size: 2.1rem;
+  }
+  .story__item {
+    width: min(46%, 380px);
+  }
+  .story {
+    gap: 8px;
+  }
+  .story__item--right {
+    margin-top: -120px;
+  }
+  .story__item:first-child {
+    margin-top: 0;
+  }
+  .flip__memory {
+    font-size: 1.6rem;
+  }
+  .game-card {
+    padding: 28px;
+  }
+  .puzzle {
+    max-width: 560px;
+  }
+  .match-grid {
+    max-width: 600px;
+    gap: 12px;
+  }
+  .mcard__emoji {
+    font-size: 3.2rem;
+  }
+  .quiz__q {
+    font-size: 1.35rem;
+  }
+  .quiz__options {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .finale__photo {
+    width: min(380px, 50%);
+  }
+  .coupons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .coupons > * {
+    display: flex;
+    flex-direction: column;
+  }
+  .coupons .coupon {
+    flex: 1;
+  }
+  .song-card {
+    max-width: 480px;
+  }
+  .sound-toggle {
+    width: 60px;
+    height: 60px;
+  }
+  .handwritten {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .page {
+    max-width: 980px;
+  }
+  .collage {
+    gap: 34px 26px;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

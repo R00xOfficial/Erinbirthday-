@@ -1,4 +1,5 @@
 import { toggleSound, useSound } from '../sound.js';
+import { MuteIcon, NoteIcon } from './Icons.jsx';
 
 /** Floating music/sound switch. Little equaliser bars dance while the song plays. */
 export default function SoundToggle() {
@@ -21,7 +22,7 @@ export default function SoundToggle() {
         </span>
       ) : (
         <span className="sound-toggle__icon" aria-hidden="true">
-          {enabled ? '♪' : '🔇'}
+          {enabled ? <NoteIcon /> : <MuteIcon />}
         </span>
       )}
     </button>

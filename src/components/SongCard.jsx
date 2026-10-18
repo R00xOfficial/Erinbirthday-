@@ -1,4 +1,5 @@
 import { pauseSong, playSongFromStart, useSound } from '../sound.js';
+import { PauseIcon, PlayIcon } from './Icons.jsx';
 
 /** "Our song" card on the last page — plays the song from the top. */
 export default function SongCard({ song }) {
@@ -19,7 +20,7 @@ export default function SongCard({ song }) {
         onClick={() => (playing ? pauseSong() : playSongFromStart())}
         aria-label={playing ? 'Pause our song' : 'Play our song from the start'}
       >
-        {playing ? '❚❚' : '▶'}
+        {playing ? <PauseIcon /> : <PlayIcon />}
       </button>
       {song.spotifyId && (
         <a

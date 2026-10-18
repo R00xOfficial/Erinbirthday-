@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { asset } from '../asset.js';
 import { duckMusic, sfx } from '../sound.js';
+import { ChevronIcon, CloseIcon } from './Icons.jsx';
 
 /**
  * Full-screen photo viewer. Swipe or use the arrows to move through `photos`;
@@ -93,7 +94,7 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
       onTouchEnd={onTouchEnd}
     >
       <button ref={closeRef} type="button" className="lightbox__close" onClick={onClose} aria-label="Close photo">
-        ×
+        <CloseIcon />
       </button>
       <figure className={`lightbox__figure ${dir > 0 ? 'from-right' : dir < 0 ? 'from-left' : 'from-zoom'}`} key={index}>
         {photo.video ? (
@@ -119,13 +120,13 @@ export default function PhotoLightbox({ photos, index, onIndex, onClose }) {
       {count > 1 && (
         <div className="lightbox__nav">
           <button type="button" onClick={() => go(-1)} aria-label="Previous photo">
-            ‹
+            <ChevronIcon dir="left" />
           </button>
           <span className="lightbox__count">
             {index + 1} / {count}
           </span>
           <button type="button" onClick={() => go(1)} aria-label="Next photo">
-            ›
+            <ChevronIcon dir="right" />
           </button>
         </div>
       )}
