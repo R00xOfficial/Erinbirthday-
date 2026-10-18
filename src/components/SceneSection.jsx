@@ -1,9 +1,11 @@
 import Reveal from './Reveal.jsx';
+import Px from './Px.jsx';
 
 export default function SceneSection({ id, eyebrow, title, intro, className = '', children }) {
   return (
     <section id={id} className={`scene ${className}`} aria-labelledby={title ? `${id}-title` : undefined}>
       {(eyebrow || title || intro) && (
+        <Px speed={0.08} max={35}>
         <Reveal className="scene__header">
           {eyebrow && <p className="scene__eyebrow">{eyebrow}</p>}
           {title && (
@@ -18,6 +20,7 @@ export default function SceneSection({ id, eyebrow, title, intro, className = ''
           )}
           {intro && <p className="scene__intro">{intro}</p>}
         </Reveal>
+        </Px>
       )}
       {children}
     </section>

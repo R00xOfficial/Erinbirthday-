@@ -2643,6 +2643,75 @@ h3 {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   Parallax depth layers + lazy-load placeholders
+   ───────────────────────────────────────────────────────────────────────────── */
+.plx {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.plx-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.plx-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.plx-tile {
+  position: relative;
+  height: var(--tile, 160vh);
+}
+
+.plx-blob {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.plx-doodle {
+  position: absolute;
+  opacity: 0.85;
+}
+
+.plx-near {
+  position: absolute;
+  opacity: 0.45;
+}
+
+.px {
+  will-change: transform;
+}
+
+.lazy-ph {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--card-border);
+  background:
+    linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.75) 50%, transparent 70%) 0 0 / 250% 100% no-repeat,
+    rgba(255, 255, 255, 0.45);
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+.lazy-ph__heart {
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: 120% 0, 0 0; }
+  to { background-position: -60% 0, 0 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    Reduced motion: keep everything readable, drop non-essential movement.
    ───────────────────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
