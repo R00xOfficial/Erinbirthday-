@@ -253,7 +253,7 @@ export const content = {
       'I love you, and I’m so glad you’re in my life. Have the birthday you deserve.',
     ],
     signoff: 'All my love,',
-    closing: 'Happy birthday, my love 🖤',
+    closing: 'Happy birthday, my love',
     revisitLabel: 'Revisit our memories',
   },
 };
