@@ -243,9 +243,9 @@ export const content = {
     envelopeLabel: 'one last envelope',
     greeting: 'Dear Erin,',
     letter: [
-      'Happy birthday. I didn’t want to just hand you a card this year. I wanted to make you something that’s actually ours — full of our photos and our memories, made specifically for you. Because it is.',
+      'Happy birthday. I didn’t want to just hand you a card this year. I wanted to make you something that’s actually ours — full of our photos and our memories, made specifically for you.',
       'I love you. I care about you so much, and you’re the person I want to share my life and all my experiences with.',
-      'I want you to know how I see you. You’re goofy in the best way, you’re beautiful, you’re smart, you’re so kind to animals, and you’re one of the most thoughtful people I know. Those little things are what make you, you — and I notice them, even when I don’t say it.',
+      'I want you to know how I see you. You’re goofy in the best way, you’re beautiful, you’re smart, you’re so kind to animals, and you’re one of the most thoughtful people I know. Those little things are what make you, you — and I notice them most of the time, even when I don’t say it.',
       'I also know things haven’t always been how they should be. There have been times I haven’t given you the attention, effort or care you deserve, and I’m not going to pretend otherwise or make excuses for it. You should never have to ask for the basics, or feel like you’re fighting for my attention. I want my actions to show you that you matter, not just my words.',
       'I’m not going to promise that everything changes overnight. What I can promise is that I’ll keep putting the effort in — not just today, but on all the ordinary days after it.',
       'From a Tesco car park in Fratton, to Tenerife, to our initials in the New Forest, to cheesy chips and deep talks up on the hill — I want so many more of those. More days out, more laughing at stupid things, more little adventures, and more photos to add to this page.',

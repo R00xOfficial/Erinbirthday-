@@ -69,6 +69,10 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
   const [intact, setIntact] = useState(!complete && !reducedMotion());
   const [shattering, setShattering] = useState(false);
   const [bump, setBump] = useState({ id: null, n: 0 });
+  // Dragging a piece: it follows the finger towards the gap, then commits or springs back.
+  const [drag, setDrag] = useState(null);
+  const dragRef = useRef(null);
+  const suppressClick = useRef(false);
   const [boardRef, boardVisible] = useReveal({ threshold: 0.45 });
   const solved = isSolved(board.tiles) && !intact;
   const reported = useRef(complete);
@@ -126,6 +130,49 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
     },
     [board, solved, autoSolving, intact]
   );
+
+  const onTileDown = (e, id, pos, canMove) => {
+    if (!canMove) return;
+    const blankAt = board.tiles.indexOf(BLANK);
+    dragRef.current = {
+      id,
+      pos,
+      startX: e.clientX,
+      startY: e.clientY,
+      ax: (blankAt % SIZE) - (pos % SIZE),
+      ay: Math.floor(blankAt / SIZE) - Math.floor(pos / SIZE),
+      size: e.currentTarget.getBoundingClientRect().width,
+      moved: 0,
+      along: 0,
+    };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+
+  const onTileMove = (e) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const dx = e.clientX - d.startX;
+    const dy = e.clientY - d.startY;
+    d.moved = Math.max(d.moved, Math.hypot(dx, dy));
+    d.along = Math.max(0, Math.min(d.size, dx * d.ax + dy * d.ay));
+    if (d.moved > 4) setDrag({ id: d.id, x: d.along * d.ax, y: d.along * d.ay });
+  };
+
+  const onTileUp = () => {
+    const d = dragRef.current;
+    if (!d) return;
+    dragRef.current = null;
+    // The browser fires a click after this; don't let it count as a second move.
+    suppressClick.current = true;
+    setTimeout(() => (suppressClick.current = false), 400);
+    setDrag(null);
+    if (d.moved <= 6 || d.along > d.size * 0.3) tap(d.pos);
+  };
+
+  const onTileCancel = () => {
+    dragRef.current = null;
+    setDrag(null);
+  };
 
   const restart = () => {
     reported.current = false;
@@ -191,13 +238,29 @@ export default function SlidingPuzzle({ src, alt, caption, shuffleMoves = 80, co
           const isBlank = id === BLANK;
           const canMove = movable.has(pos) && !solved && !intact;
           const bumped = bump.id === id ? (bump.n % 2 ? 'bump-a' : 'bump-b') : '';
+          const dragging = drag?.id === id;
+          const ox = dragging ? drag.x : 0;
+          const oy = dragging ? drag.y : 0;
           return (
             <button
               key={id}
               type="button"
-              className={`puzzle__tile ${isBlank ? 'is-blank' : ''} ${canMove ? 'can-move' : ''}`}
-              style={{ transform: `translate(${c * 100}%, ${r * 100}%)`, '--d': `${(id * 7) % 9}` }}
-              onClick={() => tap(pos)}
+              className={`puzzle__tile ${isBlank ? 'is-blank' : ''} ${canMove ? 'can-move' : ''} ${dragging ? 'is-dragging' : ''}`}
+              style={{
+                transform: `translate(calc(${c * 100}% + ${ox}px), calc(${r * 100}% + ${oy}px))`,
+                '--d': `${(id * 7) % 9}`,
+              }}
+              onPointerDown={(e) => onTileDown(e, id, pos, canMove)}
+              onPointerMove={onTileMove}
+              onPointerUp={onTileUp}
+              onPointerCancel={onTileCancel}
+              onClick={() => {
+                if (suppressClick.current) {
+                  suppressClick.current = false;
+                  return;
+                }
+                tap(pos);
+              }}
               tabIndex={isBlank || solved ? -1 : 0}
               aria-hidden={isBlank || undefined}
               aria-disabled={!canMove}
